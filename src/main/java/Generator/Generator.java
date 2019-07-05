@@ -35,19 +35,19 @@ public class Generator {
     Component c = object.getObject(); //Create an object
     generateObject(c, contrast, disabledControls); //Void to set some basic object params
     JFrame frame = new JFrame();
-    JPanel Jpanel1 = new javax.swing.JPanel();
-    fillFrame(frame, Jpanel1);
-    Jpanel1.add(c); //Adding to our object JPanel
+    JPanel TempJPanel = new javax.swing.JPanel();
+    fillFrame(frame, TempJPanel);
+    TempJPanel.add(c); //Adding to our object JPanel
     if ((R + G + B) % 3 > 128) {
       generateRGB(177, 255, R, G, B);
     } else {
       generateRGB(0, 100, R, G, B);
     }
-    Jpanel1.setBackground(new Color(R, G, B));
+    TempJPanel.setBackground(new Color(R, G, B));
     frame.pack();
-    BufferedImage bi = new BufferedImage(Jpanel1.getWidth(), Jpanel1.getHeight(), BufferedImage.TYPE_INT_ARGB); //Create an image of panel
+    BufferedImage bi = new BufferedImage(TempJPanel.getWidth(), TempJPanel.getHeight(), BufferedImage.TYPE_INT_ARGB); //Create an image of panel
     Graphics2D graphics2D = bi.createGraphics();
-    Jpanel1.paint(graphics2D);
+    TempJPanel.paint(graphics2D);
     saveImage(bi, object, i, isSorted); //Void to save an image
     frame.dispose();
 
@@ -57,12 +57,12 @@ public class Generator {
     ... //todo: Make a generation of the object we need to draw
   }
 
-  private void fillFrame(JFrame frame, JPanel Jpanel1) {
+  private void fillFrame(JFrame frame, JPanel TempJPanel) {
     frame.setPreferredSize(new Dimension(ConstCollection.IMAGE_WIDTH, ConstCollection.IMAGE_HEIGHT));
     frame.setBounds(0 ,0, ConstCollection.IMAGE_WIDTH, ConstCollection.IMAGE_HEIGHT);
     frame.setUndecorated(true);
-    Jpanel1.setLayout(null);
-    frame.getContentPane().add(Jpanel1);
+    TempJPanel.setLayout(null);
+    frame.getContentPane().add(TempJPanel);
   }
 
   private Integer generateNumber(int min, int max) {
