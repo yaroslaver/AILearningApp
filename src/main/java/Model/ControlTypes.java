@@ -13,8 +13,7 @@ public enum ControlTypes {
     SLIDER,
     BUTTON;
 
-    private static final ControlTypes[] ENUM_VALUES = ControlTypes.values();
-    private static final int SIZE = ENUM_VALUES.length;
+    private static final int SIZE = values().length;
     private final int MIN_CONTROL_VALUE_SIZE = 3;
     private final int MAX_CONTROL_VALUE_SIZE = 12;
 
@@ -81,7 +80,7 @@ public enum ControlTypes {
         return result.toString();
     }
     public ControlTypes getRandomObject() {
-        return ENUM_VALUES[getRandomInt(0, SIZE - 1)];
+        return values()[getRandomInt(0, SIZE - 1)];
     }
     public String getFolderName() {
         return this.name().toLowerCase();
