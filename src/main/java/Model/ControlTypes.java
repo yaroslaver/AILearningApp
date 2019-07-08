@@ -46,15 +46,21 @@ public enum ControlTypes {
                 sliderValues.add(getRandomInt(sliderValues.get(0), sliderValues.get(1)));
                 JSlider slider = new JSlider(JSlider.HORIZONTAL,
                         sliderValues.get(0), sliderValues.get(1), sliderValues.get(2));
-                if (sliderValues.get(1) - sliderValues.get(0) > 50) {
-                    slider.setMajorTickSpacing(20);
-                    slider.setMinorTickSpacing(10);
-                } else {
-                    slider.setMajorTickSpacing(10);
-                    slider.setMinorTickSpacing(5);
+                if (getRandomBool())
+                {
+                    if (sliderValues.get(1) - sliderValues.get(0) > 50) {
+                        slider.setMajorTickSpacing(20);
+                        slider.setMinorTickSpacing(10);
+                    } else {
+                        slider.setMajorTickSpacing(10);
+                        slider.setMinorTickSpacing(5);
+                    }
+                    if (getRandomBool())
+                    {
+                        slider.setPaintTicks(true);
+                    }
+                    slider.setPaintLabels(true);
                 }
-                slider.setPaintTicks(true);
-                slider.setPaintLabels(true);
                 return slider;
             }
             case BUTTON: {
