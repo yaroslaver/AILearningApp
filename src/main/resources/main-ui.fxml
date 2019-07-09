@@ -12,7 +12,6 @@
 
 <AnchorPane maxHeight="330.0" maxWidth="620.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="330.0" prefWidth="620.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.ControllerUI">
    <children>
-      <AnchorPane layoutX="-120.0" layoutY="-78.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="620.0" style="-fx-background-color: #052F6D#052F6D;" />
       <Button fx:id="generateButton" layoutX="30.0" layoutY="230.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="225.0" style="-fx-background-color: #052F6D#052F6D;" text="Generate" textFill="WHITE">
          <font>
             <Font size="20.0" />
