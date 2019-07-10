@@ -8,39 +8,23 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 public class ControllerManual {
 
     @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
-
-    @FXML
-    private Button generateButton;
-
-    @FXML
-    private Button helpButton;
-
-    @FXML
-    private AnchorPane previewField;
-
-    @FXML
-    private TextField quantityField;
-
-    @FXML
-    private ProgressBar progressBar;
-
-    @FXML
-    void showManual(ActionEvent event) {
-
-    }
+    private Button backButton;
 
     @FXML
     void initialize() {
+        closeManual();
+    }
 
-
+    private void closeManual(){
+        backButton.setOnAction(event -> {
+            Stage stage = (Stage) backButton.getScene().getWindow();
+            stage.close();
+        });
     }
 }
 

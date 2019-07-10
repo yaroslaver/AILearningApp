@@ -44,38 +44,21 @@ public class ControllerUI {
   @FXML
   private void showManual() {
     helpButton.setOnAction(event -> {
-      quantityField.setText("Кнопка нажата");
 
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("manual.fxml"));
-
-        try {
-            loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        Parent root = loader.getRoot();
+      try {
+        FXMLLoader fmxlLoader = new FXMLLoader(getClass().getResource("/manual.fxml"));
+        Parent root = fmxlLoader.load();
         Stage stage = new Stage();
-        stage.initModality(Modality.WINDOW_MODAL);
-        stage.initOwner(helpButton.getScene().getWindow());
         stage.setScene(new Scene(root));
-        stage.showAndWait();
-//
-//      try {
-//          Stage stage = new Stage();
-//          Parent root = FXMLLoader.load(getClass().getResource("manual.fxml"));
-//          stage.setResizable(false);
-//          stage.setScene(new Scene(root));
-//          stage.initModality(Modality.WINDOW_MODAL);
-////          stage.initOwner(((Node)actionEvent.getSource()).getScene().getWindow());
-//          stage.show();
-//      }
-//      catch (IOException e) {
-//          e.printStackTrace();
-//      }
+        stage.setResizable(false);
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.initOwner(((Node)event.getSource()).getScene().getWindow());
+        stage.show();
+      }
+      catch (IOException e) {
+          e.printStackTrace();
+      }
     });
-
 
   }
 
