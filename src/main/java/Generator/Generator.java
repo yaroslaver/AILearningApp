@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Random;
 
@@ -15,10 +16,14 @@ public class Generator {
     private int R = 0;
     private int G = 0;
     private int B = 0;
+    private int countOfComponents = 6;
+    private int[] components = new int[6];
     boolean directoryCreated = false;
+
 
     public void createSamples(ControlTypes object, Integer amount, boolean contrast, boolean disabledControls, boolean noise, boolean isSorted) {
         if (object != null) {
+            countControls(object.name(), amount);
             for (int i = 0; i < amount; i++) {
                 generateImage(object, i, contrast, disabledControls, noise, isSorted);
             }
@@ -26,13 +31,11 @@ public class Generator {
             for (int i = 0; i < amount; i++) {
                 ControlTypes newObject = ControlTypes.BUTTON; //Using any as default
                 newObject = newObject.getRandomObject(); //Changing to really random object
-                generateImage(newObject, i, contrast, disabledControls, isSorted);
-                //todo: Make a void to count every single object generated
+                generateImage(newObject, i, contrast, disabledControls, noise, isSorted);
+                countControls(object.name(), 1);
             }
         }
-        //todo: Check valuable isSorted and write to log amount of files generated
-    ...
-        writeLog(object.getObject().getName());
+        writeAmountOfControlsToLog(components);
     }
 
     private void generateImage(ControlTypes object, int i, boolean contrast, boolean disabledControls, boolean noise, boolean isSorted) {
@@ -40,14 +43,14 @@ public class Generator {
         generateObject(c, contrast, disabledControls); //Void to set some basic object params
         JFrame frame = new JFrame();
         JPanel TempJPanel = new javax.swing.JPanel();
-        int noiceAmount = 0;
+        int noiseAmount = 0;
         while (generateNumber(0, 3) == 2 && noise) {
-            JPanel noice = generateNoice();
-            Jpanel1.add(noice);
-            noiceAmount++;
+            JPanel jNoise = generateNoise();
+            TempJPanel.add(jNoise);
+            noiseAmount++;
         }
         fillFrame(frame, TempJPanel);
-        TempJPanel.add(c, noiceAmount + 1, 0); //Adding to our object JPanel
+        TempJPanel.add(c, noiseAmount + 1, 0); //Adding to our object JPanel
         if ((R + G + B) % 3 > 128) {
             generateRGB(177, 255, R, G, B);
         } else {
@@ -218,7 +221,44 @@ public class Generator {
         }
     }
 
-    private void writeLog(String name, int amount) {
-    ... //todo: Write a file in this folder in any txt format to show how many files of this type were generated
+    private void countControls(String name, int amount){
+        switch (name) {
+            case "CHECKBOX": {
+                components[0] += amount;
+            }
+            case "TEXTFIELD": {
+                components[1] += amount;
+            }
+            case "RADIOBUTTON": {
+                components[2] += amount;
+            }
+            case "SPINNER": {
+                components[3] += amount;
+            }
+            case "SLIDER": {
+                components[4] += amount;
+            }
+            case "BUTTON": {
+                components[5] += amount;
+            }
+        }
+    }
+
+    private void writeAmountOfControlsToLog(int[] components){
+        String[] nameOfComponent = {"CHECKBOX", "TEXTFIELD", "RADIOBUTTON", "SPINNER", "SLIDER", "BUTTON"};
+        String tempPath = ConstCollection.PATH + "/unsorted/result.txt";
+        try
+        {
+            FileWriter writer = new FileWriter(tempPath);
+            for (int i = 0; i < countOfComponents; i++){
+                if (components[i] != 0) {
+                    writer.write(nameOfComponent[i] + " " + components[i] + "\n");
+                }
+            }
+            writer.close();
+        }
+        catch(IOException ex){
+            System.out.println(ex.getMessage());
+        }
     }
 }
