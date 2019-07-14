@@ -6,29 +6,29 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.effect.Glow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="330.0" maxWidth="620.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="330.0" prefWidth="620.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.ControllerUI">
+<AnchorPane fx:id="anchorPane" maxHeight="380.0" maxWidth="620.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="380.0" prefWidth="620.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.ControllerUI">
    <children>
-      <Button fx:id="generateButton" layoutX="30.0" layoutY="230.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="225.0" style="-fx-background-color: #052F6D#052F6D;" text="Generate" textFill="WHITE">
+      <Button fx:id="generateButton" layoutX="30.0" layoutY="320.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="235.0" style="-fx-background-color: #052F6D#052F6D;" text="Generate" textFill="WHITE" AnchorPane.bottomAnchor="20.0">
          <font>
             <Font size="20.0" />
          </font>
       </Button>
-      <Button fx:id="helpButton" layoutX="550.0" layoutY="10.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#showManual" prefHeight="40.0" prefWidth="40.0" style="-fx-background-radius: 1000; -fx-background-color: #ffffff; -fx-border-color: #052f6d#052f6d; -fx-border-radius: 1000;" text="?" textFill="#052f6d" AnchorPane.rightAnchor="30.0">
+      <Button fx:id="helpButton" layoutX="545.0" layoutY="10.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#showManual" prefHeight="45.0" prefWidth="45.0" style="-fx-background-radius: 1000; -fx-background-color: #ffffff; -fx-border-color: #052f6d#052f6d; -fx-border-radius: 1000;" text="?" textFill="#052f6d" AnchorPane.rightAnchor="30.0">
          <font>
-            <Font size="17.0" />
+            <Font size="21.0" />
          </font>
       </Button>
-      <Label layoutX="386.0" layoutY="7.0" prefHeight="44.0" prefWidth="114.0" text="Preview" textAlignment="CENTER" textFill="#052f6d">
+      <Label layoutX="380.0" layoutY="10.0" prefHeight="44.0" prefWidth="114.0" text="Preview" textAlignment="CENTER" textFill="#052f6d">
          <font>
             <Font size="30.0" />
          </font>
       </Label>
-      <TextField fx:id="quantityField" layoutX="30.0" layoutY="130.0" prefHeight="40.0" prefWidth="225.0" promptText="Quantity">
+      <TextField fx:id="quantityField" layoutX="30.0" layoutY="130.0" prefHeight="40.0" prefWidth="235.0" promptText="Quantity">
          <font>
             <Font size="15.0" />
          </font>
@@ -63,23 +63,39 @@
             <Font size="15.0" />
          </font>
       </CheckBox>
-      <ProgressBar fx:id="progressBar" blendMode="MULTIPLY" layoutX="29.0" layoutY="290.0" opacity="0.87" prefHeight="20.0" prefWidth="562.0" progress="0.57" style="-fx-background-color: #052f6d#052f6d;">
+      <ProgressBar fx:id="progressBar" blendMode="MULTIPLY" layoutX="290.0" layoutY="320.0" prefHeight="40.0" prefWidth="300.0" progress="0.0" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="30.0">
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
          <effect>
-            <Blend mode="GREEN" />
+            <Glow level="0.03" />
          </effect></ProgressBar>
-      <CheckBox fx:id="isDisabled" layoutX="170.0" layoutY="190.0" mnemonicParsing="false" text="Disabled">
+      <CheckBox fx:id="isDisabled" layoutX="30.0" layoutY="190.0" mnemonicParsing="false" text="Disabled">
          <font>
             <Font size="15.0" />
          </font>
       </CheckBox>
-      <CheckBox fx:id="hasHighContrast" layoutX="30.0" layoutY="190.0" mnemonicParsing="false" text="High Contrast">
+      <CheckBox fx:id="hasHighContrast" layoutX="30.0" layoutY="220.0" mnemonicParsing="false" text="High Contrast">
          <font>
             <Font size="15.0" />
          </font>
       </CheckBox>
-      <FlowPane fx:id="previewField" layoutX="290.0" layoutY="59.0" prefHeight="215.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #052F6D#052F6D;" />
+      <FlowPane fx:id="previewField" layoutX="290.0" layoutY="65.0" prefHeight="235.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #052F6D#052F6D;" AnchorPane.rightAnchor="30.0" />
+      <CheckBox fx:id="isUnsorted" layoutX="170.0" layoutY="220.0" mnemonicParsing="false" text="Unsorted">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </CheckBox>
+      <CheckBox fx:id="hasNoise" layoutX="170.0" layoutY="190.0" mnemonicParsing="false" text="Noise">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </CheckBox>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" />
+      <Button fx:id="folderSelectionButton" layoutX="30.0" layoutY="260.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="235.0" style="-fx-background-color: #ffffff; -fx-border-color: #052F6D#052F6D;" text="Folder Selection" textFill="#052f6d">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
