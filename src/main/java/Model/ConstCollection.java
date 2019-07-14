@@ -9,7 +9,7 @@ public class ConstCollection {
     public static final int MIN_OBJECT_HEIGHT  = 30;
     public static final int MAX_OBJECT_HEIGHT  = 40;
 
-    public static final String PATH            = "C://Generator/";
+    public static final String PATH            = "C://Dataset/";
 
     public static final int MIN_NOISE_WIDTH    = 60;
     public static final int MAX_NOISE_WIDTH    = 90;
