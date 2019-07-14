@@ -16,10 +16,10 @@ public class Generator {
     private int G = 0;
     private int B = 0;
 
-    public void createSamples(ControlTypes object, Integer amount, boolean contrast, boolean disabledControls, boolean isSorted) {
+    public void createSamples(ControlTypes object, Integer amount, boolean contrast, boolean disabledControls, boolean noise, boolean isSorted) {
         if (object != null) {
             for (int i = 0; i < amount; i++) {
-                generateImage(object, i, contrast, disabledControls, isSorted);
+                generateImage(object, i, contrast, disabledControls, noise, isSorted);
             }
         } else {
             for (int i = 0; i < amount; i++) {
@@ -34,13 +34,19 @@ public class Generator {
         writeLog(object.getObject().getName());
     }
 
-    private void generateImage(ControlTypes object, int i, boolean contrast, boolean disabledControls, boolean isSorted) {
+    private void generateImage(ControlTypes object, int i, boolean contrast, boolean disabledControls, boolean noise, boolean isSorted) {
         Component c = object.getObject(); //Create an object
         generateObject(c, contrast, disabledControls); //Void to set some basic object params
         JFrame frame = new JFrame();
         JPanel TempJPanel = new javax.swing.JPanel();
+        int noiceAmount = 0;
+        while (generateNumber(0,3)==2 && noise){
+            JPanel noice = generateNoice();
+            Jpanel1.add(noice);
+            noiceAmount++;
+        }
         fillFrame(frame, TempJPanel);
-        TempJPanel.add(c); //Adding to our object JPanel
+        TempJPanel.add(c, noiceAmount+1, 0); //Adding to our object JPanel
         if ((R + G + B) % 3 > 128) {
             generateRGB(177, 255, R, G, B);
         } else {
