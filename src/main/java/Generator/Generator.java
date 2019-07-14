@@ -1,8 +1,3 @@
-package Generator;
-
-import Model.ConstCollection;
-import Model.ControlTypes;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -32,7 +27,7 @@ public class Generator {
                 ControlTypes newObject = ControlTypes.BUTTON; //Using any as default
                 newObject = newObject.getRandomObject(); //Changing to really random object
                 generateImage(newObject, i, contrast, disabledControls, noise, isSorted);
-                countControls(object.name(), 1);
+                countControls(newObject.name(), 1);
             }
         }
         writeAmountOfControlsToLog(components);
@@ -73,23 +68,29 @@ public class Generator {
             b = rand.nextBoolean();
         } else b = true;
         c.setEnabled(b);
-        generateRGB(170, 255, R, G, B);
+        generateRGB(0, 255, R, G, B);
         c.setBackground(new Color(R, G, B));
-        if ((R + G + B) % 3 > 128) {
-            generateRGB(170, 255, R, G, B);
+        if (contrast) {
+            if (Math.round((R + G + B) % 3) > 128) {
+                generateRGB(170, 255, R, G, B);
+            } else {
+                generateRGB(0, 80, R, G, B);
+            }
         } else {
-            generateRGB(0, 80, R, G, B);
+            generateRGB(0, 255, R, G, B);
         }
         c.setForeground(new Color(R, G, B));
-        int width = generateNumber(ConstCollection.MIN_OBJECT_WIDTH, ConstCollection.MAX_OBJECT_WIDTH);
-        int height = generateNumber(ConstCollection.MIN_OBJECT_HEIGHT, ConstCollection.MAX_OBJECT_HEIGHT);
-        c.setSize(width, height);
         if (c.getHeight() == 0 && c.getWidth() == 0) {
-            int x = rand.nextInt(ConstCollection.IMAGE_WIDTH - width - 5) + 5;
-            int y = rand.nextInt(ConstCollection.IMAGE_HEIGHT - 5) + height + 5;
-            c.setLocation(x, y);
+            Integer height = generateNumber(ConstCollection.MIN_OBJECT_HEIGHT, ConstCollection.MAX_OBJECT_HEIGHT);
+            Integer width = generateNumber(ConstCollection.MIN_OBJECT_WIDTH, ConstCollection.MAX_OBJECT_WIDTH);
+            c.setBounds(generateNumber(5, ConstCollection.IMAGE_WIDTH - 5 - width),
+                    generateNumber(5, ConstCollection.IMAGE_HEIGHT - 5 - height),
+                    width,
+                    height);
+        } else {
+            c.setLocation(generateNumber(5, ConstCollection.IMAGE_WIDTH - 5 - c.getWidth()),
+                    generateNumber(5, ConstCollection.IMAGE_HEIGHT - 5 - c.getHeight()));
         }
-
     }
 
     private JPanel generateNoise() {
@@ -207,7 +208,7 @@ public class Generator {
 
     private void saveImage(BufferedImage bi, ControlTypes object, int number, Boolean isSorted) {
         String id = Integer.toString(number);
-        String newpath = "ConstCollection.PATH";
+        String newpath = ConstCollection.PATH;
         try {
             if (isSorted) {
                 File outputfile = new File(ConstCollection.PATH + "/" + "sorted" + "/" + object.getFolderName() + "/" + id + ".png");
@@ -221,7 +222,7 @@ public class Generator {
         }
     }
 
-    private void countControls(String name, int amount){
+    private void countControls(String name, int amount) {
         switch (name) {
             case "CHECKBOX": {
                 components[0] += amount;
@@ -244,20 +245,18 @@ public class Generator {
         }
     }
 
-    private void writeAmountOfControlsToLog(int[] components){
+    private void writeAmountOfControlsToLog(int[] components) {
         String[] nameOfComponent = {"CHECKBOX", "TEXTFIELD", "RADIOBUTTON", "SPINNER", "SLIDER", "BUTTON"};
         String tempPath = ConstCollection.PATH + "/unsorted/result.txt";
-        try
-        {
+        try {
             FileWriter writer = new FileWriter(tempPath);
-            for (int i = 0; i < countOfComponents; i++){
+            for (int i = 0; i < countOfComponents; i++) {
                 if (components[i] != 0) {
                     writer.write(nameOfComponent[i] + " " + components[i] + "\n");
                 }
             }
             writer.close();
-        }
-        catch(IOException ex){
+        } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
     }

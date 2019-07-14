@@ -7,12 +7,12 @@ import java.util.ArrayList;
 
 public class GeneratorRetranslator {
 
-    public void startGenerator(ArrayList<ControlTypes> list, int amount, boolean contrast, boolean disabledControls, boolean isSorted) {
+    public void startGenerator(ArrayList<ControlTypes> list, int amount, boolean contrast, boolean disabledControls, boolean noise, boolean isSorted) {
         Generator gen = new Generator();
         if (list == null) {
-            gen.createSamples(null, amount, contrast, disabledControls, isSorted);
+            gen.createSamples(null, amount, contrast, disabledControls, noise, isSorted);
         } else {
-            list.forEach((control) -> gen.createSamples(control, amount, contrast, disabledControls, isSorted));
+            list.forEach((control) -> gen.createSamples(control, amount, contrast, disabledControls, noise, isSorted));
         }
     }
 }
