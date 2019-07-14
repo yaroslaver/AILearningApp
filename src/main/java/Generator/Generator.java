@@ -59,23 +59,11 @@ public class Generator {
         TempJPanel.paint(graphics2D);
         saveImage(bi, object, i, isSorted); //Void to save an image
         frame.dispose();
+
     }
 
     private void generateObject(Component c, boolean contrast, boolean disabledControls) {
     ... //todo: Make a generation of the object we need to draw
-    }
-
-    private JPanel generateNoise(){
-        JPanel temp = new JPanel();
-        temp.setBounds(
-            generateNumber(0, ConstCollection.IMAGE_WIDTH),
-            generateNumber(0, ConstCollection.IMAGE_HEIGHT),
-            generateNumber(ConstCollection.MIN_NOISE_WIDTH, ConstCollection.MAX_NOISE_WIDTH),
-            generateNumber(ConstCollection.MIN_NOISE_HEIGHT, ConstCollection.MAX_NOISE_HEIGHT)
-        );
-        generateRGB(0, 255, R, G, B);
-        temp.setBackground(new Color(R, G, B));
-        return temp;
     }
 
     private void fillFrame(JFrame frame, JPanel TempJPanel) {
