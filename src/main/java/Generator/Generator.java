@@ -1,3 +1,8 @@
+package Generator;
+
+import Model.ConstCollection;
+import Model.ControlTypes;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
