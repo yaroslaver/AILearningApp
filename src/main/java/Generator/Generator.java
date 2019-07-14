@@ -62,7 +62,29 @@ public class Generator {
     }
 
     private void generateObject(Component c, boolean contrast, boolean disabledControls) {
-    ... //todo: Make a generation of the object we need to draw
+        Random rand = new Random();
+        boolean b;
+        if (disabledControls) {
+             b = rand.nextBoolean();
+        } else b = true;
+        c.setEnabled(b);
+        generateRGB(170, 255, R, G, B);
+        c.setBackground(new Color(R, G, B));
+        if ((R + G + B) % 3 > 128) {
+            generateRGB(170, 255, R, G, B);
+        } else {
+            generateRGB(0, 80, R, G, B);
+        }
+        c.setForeground(new Color(R, G, B));
+        int width = generateNumber(ConstCollection.MIN_OBJECT_WIDTH, ConstCollection.MAX_OBJECT_WIDTH);
+        int height = generateNumber(ConstCollection.MIN_OBJECT_HEIGHT ,ConstCollection.MAX_OBJECT_HEIGHT);
+        c.setSize(width,  height);
+        if (c.getHeight()==0 && c.getWidth()==0) {
+            int x = rand.nextInt(ConstCollection.IMAGE_WIDTH - width - 5 ) + 5;
+            int y = rand.nextInt(ConstCollection.IMAGE_HEIGHT - 5) + height + 5;
+            c.setLocation(x, y);
+        }
+
     }
 
     private JPanel generateNoise(){
