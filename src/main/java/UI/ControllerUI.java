@@ -2,6 +2,7 @@ package UI;
 
 import Generator.Generator;
 import Generator.GeneratorRetranslator;
+import Model.ConstCollection;
 import Model.ControlTypes;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -120,6 +121,7 @@ public class ControllerUI {
 
                 Stage stage = (Stage) anchorPane.getScene().getWindow();
                 File file = directoryChooser.showDialog(stage);
+                ConstCollection.PATH = file.getAbsolutePath();
 
                 if (file != null) {
                     showAlert("Selected folder: " + file.getAbsolutePath());
@@ -263,6 +265,11 @@ public class ControllerUI {
             if (controlsList.size() == 0) {
                 showAlert("At least one control must be selected. \n" +
                         "Please, choose any controls.");
+                return;
+            }
+
+            if (ConstCollection.PATH == "C://Dataset/") {
+                showAlert("Please, choose a folder for saving controls.");
                 return;
             }
             
