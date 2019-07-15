@@ -2,6 +2,7 @@ package Generator;
 
 import Model.ConstCollection;
 import Model.ControlTypes;
+import UI.ControllerUI;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -127,15 +128,8 @@ public class Generator {
 
   private void createFolders() {
     if (directoryCreated == false) {
-      File folder = new File(ConstCollection.PATH);
-      if (!folder.exists()) {
-        if (folder.mkdir()) {
-          System.out.println("Directory Dataset is created");
-        } else {
-          System.out.println("Failed to create directory");
-        }
-      }
-      File folderUnsorted = new File(ConstCollection.PATH + "/" + "unsorted");
+
+      File folderUnsorted = new File(ControllerUI.PATH + "/" + "unsorted");
       if (!folderUnsorted.exists()) {
         if (folderUnsorted.mkdir()) {
           System.out.println("Directory unsorted is created");
@@ -143,7 +137,7 @@ public class Generator {
           System.out.println("Failed to create directory");
         }
       }
-      File folderSorted = new File(ConstCollection.PATH + "/" + "sorted");
+      File folderSorted = new File(ControllerUI.PATH + "/" + "sorted");
       if (!folderSorted.exists()) {
         if (folderSorted.mkdir()) {
           System.out.println("Directory sorted is created");
@@ -151,7 +145,7 @@ public class Generator {
           System.out.println("Failed to create directory");
         }
       }
-      File folderCheckbox = new File(ConstCollection.PATH + "/" + "sorted" + "/" + "checkbox");
+      File folderCheckbox = new File(ControllerUI.PATH + "/" + "sorted" + "/" + "checkbox");
       if (!folderCheckbox.exists()) {
         if (folderCheckbox.mkdir()) {
           System.out.println("Directory checkbox is created");
@@ -159,7 +153,7 @@ public class Generator {
           System.out.println("Failed to create directory");
         }
       }
-      File folderTextField = new File(ConstCollection.PATH + "/" + "sorted" + "/" + "textfield");
+      File folderTextField = new File(ControllerUI.PATH + "/" + "sorted" + "/" + "textfield");
       if (!folderTextField.exists()) {
         if (folderTextField.mkdir()) {
           System.out.println("Directory textfield is created");
@@ -167,7 +161,7 @@ public class Generator {
           System.out.println("Failed to create directory");
         }
       }
-      File folderRadioBtn = new File(ConstCollection.PATH + "/" + "sorted" + "/" + "radiobutton");
+      File folderRadioBtn = new File(ControllerUI.PATH + "/" + "sorted" + "/" + "radiobutton");
       if (!folderRadioBtn.exists()) {
         if (folderRadioBtn.mkdir()) {
           System.out.println("Directory radiobutton is created");
@@ -175,7 +169,7 @@ public class Generator {
           System.out.println("Failed to create directory");
         }
       }
-      File folderSpinner = new File(ConstCollection.PATH + "/" + "sorted" + "/" + "spinner");
+      File folderSpinner = new File(ControllerUI.PATH + "/" + "sorted" + "/" + "spinner");
       if (!folderSpinner.exists()) {
         if (folderSpinner.mkdir()) {
           System.out.println("Directory spinner is created");
@@ -183,7 +177,7 @@ public class Generator {
           System.out.println("Failed to create directory");
         }
       }
-      File folderSlider = new File(ConstCollection.PATH + "/" + "sorted" + "/" + "slider");
+      File folderSlider = new File(ControllerUI.PATH + "/" + "sorted" + "/" + "slider");
       if (!folderSlider.exists()) {
         if (folderSlider.mkdir()) {
           System.out.println("Directory slider is created");
@@ -191,7 +185,7 @@ public class Generator {
           System.out.println("Failed to create directory");
         }
       }
-      File folderButton = new File(ConstCollection.PATH + "/" + "sorted" + "/" + "button");
+      File folderButton = new File(ControllerUI.PATH + "/" + "sorted" + "/" + "button");
       if (!folderButton.exists()) {
         if (folderButton.mkdir()) {
           System.out.println("Directory button is created");
@@ -210,10 +204,10 @@ public class Generator {
     String newpath = "ConstCollection.PATH";
     try {
       if (isSorted) {
-        File outputfile = new File(ConstCollection.PATH + "/" + "sorted" + "/" + object.getFolderName() + "/" + id + ".png");
+        File outputfile = new File(ControllerUI.PATH + "/" + "sorted" + "/" + object.getFolderName() + "/" + id + ".png");
         ImageIO.write(bi, "png", outputfile);
       } else {
-        File outputfile = new File(ConstCollection.PATH + "/" + "unsorted" + "/" + object.getFolderName() + "_" + id + ".png");
+        File outputfile = new File(ControllerUI.PATH + "/" + "unsorted" + "/" + object.getFolderName() + "_" + id + ".png");
         ImageIO.write(bi, "png", outputfile);
       }
     } catch (IOException ex) {
@@ -246,7 +240,7 @@ public class Generator {
 
   private void writeAmountOfControlsToLog(int[] components){
     String[] nameOfComponent = {"CHECKBOX", "TEXTFIELD", "RADIOBUTTON", "SPINNER", "SLIDER", "BUTTON"};
-    String tempPath = ConstCollection.PATH + "/unsorted/result.txt";
+    String tempPath = ControllerUI.PATH + "/unsorted/result.txt";
     try
     {
       FileWriter writer = new FileWriter(tempPath);
