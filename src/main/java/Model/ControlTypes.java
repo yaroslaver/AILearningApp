@@ -1,6 +1,7 @@
 package Model;
 
 import javax.swing.*;
+import javax.swing.text.Caret;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
@@ -45,7 +46,13 @@ public enum ControlTypes {
                 return new JCheckBox(getRandomString(), getRandomBool());
             }
             case TEXTFIELD: {
-                return new JTextField(getRandomString());
+                JTextField textField = new JTextField(getRandomString());
+                int caretPosition = getRandomInt(0, textField.getText().length());
+                textField.setCaretPosition(caretPosition);
+                Caret caret = textField.getCaret();
+                caret.setSelectionVisible(true);
+                textField.setSelectionEnd(getRandomInt(caretPosition, textField.getText().length()));
+                return textField;
             }
             case RADIOBUTTON: {
                 return new JRadioButton(getRandomString(), getRandomBool());
