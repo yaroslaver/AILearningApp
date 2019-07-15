@@ -79,7 +79,7 @@ public class ControllerUI {
     @FXML
     private FlowPane previewField = new FlowPane();
 
-    public static String PATH = "";
+    public static String mainFolder = "";
 
 
     @FXML
@@ -123,7 +123,7 @@ public class ControllerUI {
 
                 Stage stage = (Stage) anchorPane.getScene().getWindow();
                 File file = directoryChooser.showDialog(stage);
-                PATH = file.getAbsolutePath();
+                mainFolder = file.getAbsolutePath();
 
                 if (file != null) {
                     showAlert("Selected folder: " + file.getAbsolutePath());
@@ -270,7 +270,7 @@ public class ControllerUI {
                 return;
             }
 
-            if ("".equals(PATH)) {
+            if ("".equals(mainFolder)) {
                 showAlert("Please, choose a folder for saving controls.");
                 return;
             }
