@@ -19,23 +19,26 @@ public class Generator {
     private int countOfComponents = 6;
     private int[] components = new int[6];
     boolean directoryCreated = false;
+    private int threadNumber;
 
 
-    public void createSamples(ControlTypes object, Integer amount, boolean contrast, boolean disabledControls, boolean noise, boolean isSorted) {
+    public void createSamples(ControlTypes object, int minNumber, int maxNumber, boolean contrast, boolean disabledControls,
+                              boolean noise, boolean isSorted, int threadNumber) {
+        this.threadNumber = threadNumber;
         if (object != null) {
-            countControls(object.name(), amount);
-            for (int i = 0; i < amount; i++) {
+            //countControls(object.name(), maxNumber - minNumber);
+            for (int i = minNumber; i < maxNumber; i++) {
                 generateImage(object, i, contrast, disabledControls, noise, isSorted);
             }
         } else {
-            for (int i = 0; i < amount; i++) {
+            for (int i = minNumber; i < maxNumber; i++) {
                 ControlTypes newObject = ControlTypes.BUTTON; //Using any as default
                 newObject = newObject.getRandomObject(); //Changing to really random object
                 generateImage(newObject, i, contrast, disabledControls, noise, isSorted);
-                countControls(newObject.name(), 1);
+                //countControls(newObject.name(), 1);
             }
         }
-        writeAmountOfControlsToLog(components);
+        //writeAmountOfControlsToLog(components);
     }
 
     private void generateImage(ControlTypes object, int i, boolean contrast, boolean disabledControls, boolean noise, boolean isSorted) {
@@ -113,7 +116,12 @@ public class Generator {
 
     private void fillFrame(JFrame frame, JPanel TempJPanel) {
         frame.setPreferredSize(new Dimension(ConstCollection.IMAGE_WIDTH, ConstCollection.IMAGE_HEIGHT));
-        frame.setBounds(0, 0, ConstCollection.IMAGE_WIDTH, ConstCollection.IMAGE_HEIGHT);
+        frame.setBounds(
+                generateNumber(150*threadNumber, 300 * threadNumber), //Position of invisible frame is set this way to prevent
+                generateNumber(150*threadNumber, 300 * threadNumber), //two different frames being on the same position (controls may combine this way then)
+                ConstCollection.IMAGE_WIDTH,
+                ConstCollection.IMAGE_HEIGHT
+        );
         frame.setUndecorated(true);
         TempJPanel.setLayout(null);
         frame.getContentPane().add(TempJPanel);
