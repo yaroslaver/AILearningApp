@@ -265,7 +265,7 @@ public class Generator {
             FileWriter writer = new FileWriter(tempPath);
             for (int i = 0; i < countOfComponents; i++) {
                 if (components[i] != 0) {
-                    writer.write(nameOfComponent[i] + " " + components[i] + "\n");
+                    writer.write(nameOfComponent[i] + " " + components[i] + "\r\n");
                 }
             }
             writer.close();
