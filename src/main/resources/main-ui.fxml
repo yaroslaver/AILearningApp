@@ -11,11 +11,7 @@
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.text.Font?>
 
-<<<<<<< HEAD
 <AnchorPane fx:id="anchorPane" maxHeight="401.0" maxWidth="622.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="389.0" prefWidth="622.0" xmlns="http://javafx.com/javafx/8.0.192" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.ControllerUI">
-=======
-<AnchorPane fx:id="anchorPane" maxHeight="401.0" maxWidth="622.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="389.0" prefWidth="622.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.ControllerUI">
->>>>>>> c400affc65e293ab93bbb5b603f3a3e808e22b66
    <children>
       <JFXButton fx:id="generateButton" layoutX="292.0" layoutY="300.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="300.0" style="-fx-background-color: #052F6D#052F6D; -fx-border-color: #052F6D#052F6D;" text="Generate" textFill="WHITE" AnchorPane.bottomAnchor="55.0" AnchorPane.rightAnchor="30.0">
          <font>

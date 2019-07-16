@@ -15,8 +15,4 @@ dependencies {
     testCompile("org.junit.jupiter:junit-jupiter-api:5.4.1")
     testRuntime("org.junit.jupiter:junit-jupiter-engine:5.4.1")
     compile 'com.jfoenix:jfoenix:8.0.8'
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> c400affc65e293ab93bbb5b603f3a3e808e22b66
