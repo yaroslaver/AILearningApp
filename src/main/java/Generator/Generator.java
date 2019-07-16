@@ -8,7 +8,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Random;
 
@@ -16,8 +15,8 @@ public class Generator {
     private int R = 0;
     private int G = 0;
     private int B = 0;
-    private int countOfComponents = 6;
-    private int[] components = new int[6];
+    //private int countOfComponents = 6;
+    //private int[] components = new int[6];
     boolean directoryCreated = false;
     private int threadNumber;
 
@@ -144,73 +143,73 @@ public class Generator {
             File folder = new File(ConstCollection.PATH);
             if (!folder.exists()) {
                 if (folder.mkdir()) {
-                    System.out.println("Directory Dataset is created");
+                  LogWriter.log("Directory Dataset is created");
                 } else {
-                    System.out.println("Failed to create directory");
+                  LogWriter.log("Failed to create directory");
                 }
             }
             File folderUnsorted = new File(ConstCollection.PATH + "/" + "unsorted");
             if (!folderUnsorted.exists()) {
                 if (folderUnsorted.mkdir()) {
-                    System.out.println("Directory unsorted is created");
+                  LogWriter.log("Directory unsorted is created");
                 } else {
-                    System.out.println("Failed to create directory");
+                  LogWriter.log("Failed to create directory");
                 }
             }
             File folderSorted = new File(ConstCollection.PATH + "/" + "sorted");
             if (!folderSorted.exists()) {
                 if (folderSorted.mkdir()) {
-                    System.out.println("Directory sorted is created");
+                  LogWriter.log("Directory sorted is created");
                 } else {
-                    System.out.println("Failed to create directory");
+                  LogWriter.log("Failed to create directory");
                 }
             }
             File folderCheckbox = new File(ConstCollection.PATH + "/" + "sorted" + "/" + "checkbox");
             if (!folderCheckbox.exists()) {
                 if (folderCheckbox.mkdir()) {
-                    System.out.println("Directory checkbox is created");
+                  LogWriter.log("Directory checkbox is created");
                 } else {
-                    System.out.println("Failed to create directory");
+                  LogWriter.log("Failed to create directory");
                 }
             }
             File folderTextField = new File(ConstCollection.PATH + "/" + "sorted" + "/" + "textfield");
             if (!folderTextField.exists()) {
                 if (folderTextField.mkdir()) {
-                    System.out.println("Directory textfield is created");
+                  LogWriter.log("Directory textfield is created");
                 } else {
-                    System.out.println("Failed to create directory");
+                  LogWriter.log("Failed to create directory");
                 }
             }
             File folderRadioBtn = new File(ConstCollection.PATH + "/" + "sorted" + "/" + "radiobutton");
             if (!folderRadioBtn.exists()) {
                 if (folderRadioBtn.mkdir()) {
-                    System.out.println("Directory radiobutton is created");
+                  LogWriter.log("Directory radiobutton is created");
                 } else {
-                    System.out.println("Failed to create directory");
+                  LogWriter.log("Failed to create directory");
                 }
             }
             File folderSpinner = new File(ConstCollection.PATH + "/" + "sorted" + "/" + "spinner");
             if (!folderSpinner.exists()) {
                 if (folderSpinner.mkdir()) {
-                    System.out.println("Directory spinner is created");
+                  LogWriter.log("Directory spinner is created");
                 } else {
-                    System.out.println("Failed to create directory");
+                  LogWriter.log("Failed to create directory");
                 }
             }
             File folderSlider = new File(ConstCollection.PATH + "/" + "sorted" + "/" + "slider");
             if (!folderSlider.exists()) {
                 if (folderSlider.mkdir()) {
-                    System.out.println("Directory slider is created");
+                  LogWriter.log("Directory slider is created");
                 } else {
-                    System.out.println("Failed to create directory");
+                  LogWriter.log("Failed to create directory");
                 }
             }
             File folderButton = new File(ConstCollection.PATH + "/" + "sorted" + "/" + "button");
             if (!folderButton.exists()) {
                 if (folderButton.mkdir()) {
-                    System.out.println("Directory button is created");
+                  LogWriter.log("Directory button is created");
                 } else {
-                    System.out.println("Failed to create directory");
+                  LogWriter.log("Failed to create directory");
                 }
             }
             directoryCreated = true;
@@ -231,10 +230,11 @@ public class Generator {
                 ImageIO.write(bi, "png", outputfile);
             }
         } catch (IOException ex) {
-            System.out.println(ex);
+          LogWriter.log(ex.getMessage());
         }
     }
 
+    /*
     private void countControls(String name, int amount) {
         switch (name) {
             case "CHECKBOX": {
@@ -257,7 +257,9 @@ public class Generator {
             }
         }
     }
+     */
 
+    /*
     private void writeAmountOfControlsToLog(int[] components) {
         String[] nameOfComponent = {"CHECKBOX", "TEXTFIELD", "RADIOBUTTON", "SPINNER", "SLIDER", "BUTTON"};
         String tempPath = ConstCollection.PATH + "/unsorted/result.txt";
@@ -270,7 +272,8 @@ public class Generator {
             }
             writer.close();
         } catch (IOException ex) {
-            System.out.println(ex.getMessage());
+          LogWriter.log(ex.getMessage());
         }
     }
+     */
 }

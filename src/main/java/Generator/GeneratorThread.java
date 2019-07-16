@@ -29,7 +29,9 @@ public class GeneratorThread extends Thread implements Runnable {
 
   @Override
   public void run(){
+      LogWriter.log("Thread " +  this.threadNumber + " has started");
       Generator gen = new Generator();
       gen.createSamples(type, minNumber, maxNumber, contrast, disabledControls, noise, isSorted, threadNumber);
+      LogWriter.log("Thread " +  this.threadNumber + " has finished");
   }
 }

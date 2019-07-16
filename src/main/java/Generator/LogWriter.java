@@ -9,15 +9,15 @@ import java.util.Date;
 
 public class LogWriter {
 
-  synchronized private void log(String temp) {
-    String tempPath = ConstCollection.PATH + "/unsorted/result.txt";
+  synchronized static public void log(String temp) {
+    String tempPath = ConstCollection.PATH + "/log.txt";
     DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
     Date date = new Date();
     try(FileWriter writer = new FileWriter(tempPath, true)){
-      writer.write(temp + " " + dateFormat.format(date) + "\r\n");
+      writer.write( "[" + dateFormat.format(date) + "] " + temp + "\r\n");
       writer.flush();
     } catch (IOException ex) {
-      System.out.println(ex.getMessage());
+      LogWriter.log(ex.getMessage());
     }
   }
 }

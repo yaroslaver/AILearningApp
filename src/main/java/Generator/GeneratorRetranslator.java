@@ -1,9 +1,15 @@
+package Generator;
+
+import Model.ConstCollection;
+import Model.ControlTypes;
+
 import java.util.ArrayList;
 
 public class GeneratorRetranslator {
 
     public void startGenerator(ArrayList<ControlTypes> list, int amount, boolean contrast,  boolean disabledControls, boolean noise, boolean isSorted) {
         GeneratorThread[] Threads = new GeneratorThread[ConstCollection.THREAD_COUNT];
+        LogWriter.log("Generation started");
         if (list == null) {
             int part = (int) amount / ConstCollection.THREAD_COUNT;
             int extra = 0;
@@ -40,5 +46,6 @@ public class GeneratorRetranslator {
                 Threads[threadNumber].start();
             }
         }
+        LogWriter.log("Generation finished\r\n");
     }
 }
