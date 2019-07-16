@@ -1,6 +1,7 @@
 package UI;
 
 import Generator.GeneratorRetranslator;
+import Model.ConstCollection;
 import Model.ControlTypes;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -121,6 +122,7 @@ public class ControllerUI {
 
                 Stage stage = (Stage) anchorPane.getScene().getWindow();
                 File file = directoryChooser.showDialog(stage);
+                mainFolder = file.getAbsolutePath();
 
                 if (file != null) {
                     mainFolder = file.getAbsolutePath();
@@ -271,7 +273,11 @@ public class ControllerUI {
                 showAlert("Please, choose a folder for saving controls.");
                 return;
             }
+<<<<<<< HEAD
 
+=======
+            
+>>>>>>> c400affc65e293ab93bbb5b603f3a3e808e22b66
             GeneratorRetranslator generator = new GeneratorRetranslator();
             generator.startGenerator(controlsList, inputQuantity, hasHighContrast.isSelected(),
                     isDisabled.isSelected(), hasNoise.isSelected(), !isUnsorted.isSelected());
