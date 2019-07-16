@@ -1,6 +1,5 @@
 package UI;
 
-import Generator.Generator;
 import Generator.GeneratorRetranslator;
 import Model.ControlTypes;
 import javafx.fxml.FXML;
@@ -78,6 +77,8 @@ public class ControllerUI {
     @FXML
     private FlowPane previewField = new FlowPane();
 
+    public static String mainFolder = "";
+
 
     @FXML
     private void initialize() {
@@ -122,12 +123,12 @@ public class ControllerUI {
                 File file = directoryChooser.showDialog(stage);
 
                 if (file != null) {
+                    mainFolder = file.getAbsolutePath();
                     showAlert("Selected folder: " + file.getAbsolutePath());
                 } else {
                     showAlert("Path is empty.\n" +
                             "Please enter the correct path to the folder");
                 }
-
             }
             catch (Exception ex) {
                 System.err.println(ex.getMessage());
@@ -265,7 +266,12 @@ public class ControllerUI {
                         "Please, choose any controls.");
                 return;
             }
-            
+
+            if ("".equals(mainFolder)) {
+                showAlert("Please, choose a folder for saving controls.");
+                return;
+            }
+
             GeneratorRetranslator generator = new GeneratorRetranslator();
             generator.startGenerator(controlsList, inputQuantity, hasHighContrast.isSelected(),
                     isDisabled.isSelected(), hasNoise.isSelected(), !isUnsorted.isSelected());

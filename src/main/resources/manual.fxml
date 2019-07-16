@@ -7,22 +7,23 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="360.0" maxWidth="640.0" minHeight="380.0" minWidth="620.0" prefHeight="380.0" prefWidth="620.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.ControllerManual">
+<?import com.jfoenix.controls.JFXButton?>
+<AnchorPane maxHeight="360.0" maxWidth="640.0" minHeight="380.0" minWidth="620.0" prefHeight="380.0" prefWidth="620.0" xmlns="http://javafx.com/javafx/8.0.192" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.ControllerManual">
     <children>
-      <Label layoutX="248.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="140.0" text="Manual" textFill="#052f6d" AnchorPane.leftAnchor="240.0" AnchorPane.rightAnchor="240.0">
-         <font>
-            <Font size="40.0" />
-         </font>
-      </Label>
-      <Button fx:id="backButton" layoutX="200.0" layoutY="326.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="220.0" style="-fx-background-color: #052f6d#052f6d;" text="Back" textFill="WHITE" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Button>
-      <ImageView fitHeight="268.0" fitWidth="536.0" layoutX="42.0" layoutY="56.0" pickOnBounds="true" smooth="false" AnchorPane.leftAnchor="42.0" AnchorPane.rightAnchor="42.0">
-         <image>
-            <Image url="@images/manual.png" />
-         </image>
-      </ImageView>
+        <Label layoutX="248.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="140.0" text="Manual" textFill="#052f6d" AnchorPane.leftAnchor="240.0" AnchorPane.rightAnchor="240.0">
+            <font>
+                <Font size="40.0" />
+            </font>
+        </Label>
+        <JFXButton fx:id="backButton" layoutX="200.0" layoutY="326.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="220.0" style="-fx-background-color: #052f6d#052f6d;" text="Back" textFill="WHITE" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </JFXButton>
+        <ImageView fitHeight="268.0" fitWidth="536.0" layoutX="42.0" layoutY="56.0" pickOnBounds="true" smooth="false" AnchorPane.leftAnchor="42.0" AnchorPane.rightAnchor="42.0">
+            <image>
+                <Image url="@images/manual.png" />
+            </image>
+        </ImageView>
     </children>
 </AnchorPane>
