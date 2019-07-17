@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class GeneratorRetranslator {
 
     private static int progress = 0;
-	private String path = ConstCollection.PATH;
+    private String path = ConstCollection.PATH;
 
     /**
      * @param list             -- all types of controls that should be generated, should be null in case of unsorted generation
@@ -21,9 +21,9 @@ public class GeneratorRetranslator {
      */
     public void startGenerator(ArrayList<ControlTypes> list, int amount, boolean contrast, boolean disabledControls,
                                boolean noise, boolean isSorted, boolean Threaded, String path) {
-		if (String path != null){
-			this.path = path;
-		}
+        if (String path != null){
+            this.path = path;
+        }
         if (Threaded) {
             GeneratorThread[] Threads = new GeneratorThread[ConstCollection.THREAD_COUNT];
             LogWriter.log("Generation started in " + ConstCollection.THREAD_COUNT + " threads.");
