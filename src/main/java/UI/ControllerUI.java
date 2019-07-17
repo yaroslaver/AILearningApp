@@ -17,11 +17,10 @@ import javafx.scene.layout.FlowPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Scanner;
 
 /**
  * This class controls all actions, which can happen in main window of the application.
@@ -83,7 +82,7 @@ public class ControllerUI {
     @FXML
     private FlowPane previewField = new FlowPane();
 
-    public static String mainFolder = "";
+    private String mainFolder = "";
 
 
     /**
@@ -95,6 +94,7 @@ public class ControllerUI {
         setGenerateButtonAction();
         showManual();
         selectFolder();
+        checkSavingFolder();
         setControlsActions();
     }
 
@@ -124,10 +124,22 @@ public class ControllerUI {
         });
     }
 
+    /**
+     * Method looking for a folder for saving images.
+     */
+    private void checkSavingFolder() {
+        try(Scanner scanner = new Scanner(new File("settings\\folderForSaving.txt"))) {
+            mainFolder = scanner.nextLine();
+        }
+        catch (FileNotFoundException ex) {
+            System.err.println("Can't find file folderForSaving.txt");
+        }
+
+    }
 
     /**
      * Method attaches EventHandler to the folderSelectionButton.
-     * EventHandler offers to choose folder for images.
+     * EventHandler offers to choose folder for images and save path to this folder.
      * If folder wasn't chosen, alert message shows.
      */
     private void selectFolder() {
@@ -135,13 +147,23 @@ public class ControllerUI {
         folderSelectionButton.setOnAction(event -> {
             try {
                 final DirectoryChooser directoryChooser = new DirectoryChooser();
+                if (!mainFolder.equals("")) {
+                    directoryChooser.setInitialDirectory(new File(mainFolder).getAbsoluteFile());
+                }
 
                 Stage stage = (Stage) anchorPane.getScene().getWindow();
-                File file = directoryChooser.showDialog(stage);
+                File folder = directoryChooser.showDialog(stage);
 
-                if (file != null) {
-                    mainFolder = file.getAbsolutePath();
-                    showAlert("Selected folder: " + file.getAbsolutePath());
+                if (folder != null) {
+                    mainFolder = folder.getAbsolutePath();
+                    new File("settings").mkdir();
+                    try(FileWriter fileWriter = new FileWriter("settings\\folderForSaving.txt")) {
+                        fileWriter.write(mainFolder);
+                    }
+                    catch (IOException ex) {
+                        System.err.println("Can't open or create file folderForSaving.txt");
+                    }
+                    showAlert("Selected folder: " + folder.getAbsolutePath());
                 } else {
                     showAlert("Path is empty.\n" +
                             "Please enter the correct path to the folder");
@@ -304,11 +326,10 @@ public class ControllerUI {
                 return;
             }
 
-            if ("".equals(mainFolder)) {
+            if (mainFolder.equals("")) {
                 showAlert("Please, choose a folder for saving controls.");
                 return;
             }
-
             GeneratorRetranslator generator = new GeneratorRetranslator();
             generator.startGenerator(controlsList, inputQuantity, hasHighContrast.isSelected(),
                     isDisabled.isSelected(), hasNoise.isSelected(), !isUnsorted.isSelected(), true);
