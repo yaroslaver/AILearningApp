@@ -21,7 +21,7 @@ public class GeneratorRetranslator {
      */
     public void startGenerator(ArrayList<ControlTypes> list, int amount, boolean contrast, boolean disabledControls,
                                boolean noise, boolean isSorted, boolean Threaded, String path) {
-        if (String path != null){
+        if (path != null){
             this.path = path;
         }
         if (Threaded) {
