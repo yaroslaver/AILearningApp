@@ -43,12 +43,15 @@ public enum ControlTypes {
     private final char[] CHARS = (LETTERS + LETTERS.toUpperCase() + "0123456789").toCharArray();
 
     //return Component corresponding to current element of enum
-    public Component getObject() {
-        try {
-            UIManager.setLookAndFeel(LOOK_AND_FEEL[getRandomInt(0, LOOK_AND_FEEL.length - 1)]);
-        } catch (ClassNotFoundException | InstantiationException
-                | IllegalAccessException | UnsupportedLookAndFeelException e) {
-            e.printStackTrace();
+    public Component getObject(boolean isThreaded) {
+        //use different styles of controls only in single-thread processing
+        if (!isThreaded) {
+            try {
+                UIManager.setLookAndFeel(LOOK_AND_FEEL[getRandomInt(0, LOOK_AND_FEEL.length - 1)]);
+            } catch (ClassNotFoundException | InstantiationException
+                    | IllegalAccessException | UnsupportedLookAndFeelException e) {
+                e.printStackTrace();
+            }
         }
 
         switch (this) {
@@ -67,7 +70,7 @@ public enum ControlTypes {
                 textField.setSelectionEnd(getRandomInt(caretPosition, textField.getText().length()));
                 return textField;
             }
-            
+
             //return JRadioButton with random text and random state of selection
             case RADIOBUTTON: {
                 return new JRadioButton(getRandomString(), getRandomBool());
