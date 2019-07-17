@@ -19,11 +19,18 @@ public class Generator {
     //private int[] components = new int[6];
     boolean directoryCreated = false;
     private int threadNumber;
+    private boolean isThreaded = false;
 
 
     public void createSamples(ControlTypes object, int minNumber, int maxNumber, boolean contrast, boolean disabledControls,
                               boolean noise, boolean isSorted, int threadNumber) {
-        this.threadNumber = threadNumber;
+        if (threadNumber!=null) {
+            this.threadNumber = threadNumber;
+            isThreaded = true;
+        } else {
+            this.threadNumber = 1; //need to set this as 1 because it's used as a multiplier in fillFrame void
+            isThreaded = false;
+        }
         if (object != null) {
             //countControls(object.name(), maxNumber - minNumber);
             for (int i = minNumber; i < maxNumber; i++) {
@@ -41,7 +48,7 @@ public class Generator {
     }
 
     private void generateImage(ControlTypes object, int i, boolean contrast, boolean disabledControls, boolean noise, boolean isSorted) {
-        Component c = object.getObject(); //Create an object
+        Component c = object.getObject(isThreaded); //Create an object
         generateObject(c, contrast, disabledControls); //Void to set some basic object params
         JFrame frame = new JFrame();
         JPanel TempJPanel = new javax.swing.JPanel();
