@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class GeneratorRetranslator {
 
     private static int progress = 0;
-    private String path = ConstCollection.PATH;
+    private static String path = ConstCollection.PATH;
 
     /**
      * @param list             -- all types of controls that should be generated, should be null in case of unsorted generation
