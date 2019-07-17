@@ -166,6 +166,10 @@ public class Generator {
     }
 
     /**
+	 * Setting up some default variables for frame
+	 * i.e. size of frame and position of it somewhere
+	 * Without changing position all frames will be mixed together on images.
+	 *
      * @param frame
      * @param TempJPanel
      */
