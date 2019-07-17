@@ -22,7 +22,18 @@ public class Generator {
     private boolean isThreaded = false;
     private int cyclesForProgress = 0;
 
-
+    /**
+     * Creating samples
+     *
+     * @param object           -- control's type
+     * @param minNumber        -- min
+     * @param maxNumber        -- max
+     * @param contrast         -- if true -- high contrast algorithm should be enabled
+     * @param disabledControls -- if true -- allows generator to create disabled controls or checked (in case of radiobutton/checkbox)
+     * @param noise            -- if true -- add a chance to generate image with some random noise
+     * @param isSorted         -- should be true if we generate sorted images and false if unsorted
+     * @param threadNumber     -- count of thread
+     */
     public void createSamples(ControlTypes object, int minNumber, int maxNumber, boolean contrast, boolean disabledControls,
                               boolean noise, boolean isSorted, Integer threadNumber) {
         if (!threadNumber.equals(-1)) {
@@ -39,7 +50,7 @@ public class Generator {
             for (int i = minNumber; i < maxNumber; i++) {
                 generateImage(object, i, contrast, disabledControls, noise, isSorted);
                 currentCycle++;
-                if (currentCycle == cyclesForProgress){
+                if (currentCycle == cyclesForProgress) {
                     GeneratorRetranslator.setProgress(currentCycle);
                 }
             }
@@ -50,7 +61,7 @@ public class Generator {
                 newObject = newObject.getRandomObject(); //Changing to really random object
                 generateImage(newObject, i, contrast, disabledControls, noise, isSorted);
                 currentCycle++;
-                if (currentCycle == cyclesForProgress){
+                if (currentCycle == cyclesForProgress) {
                     GeneratorRetranslator.setProgress(currentCycle);
                 }
                 //countControls(newObject.name(), 1);
@@ -59,13 +70,23 @@ public class Generator {
         //writeAmountOfControlsToLog(components);
     }
 
+    /**
+     * Generating image
+     *
+     * @param object           -- control's type
+     * @param i                -- generated images counter
+     * @param contrast         -- if true -- high contrast algorithm should be enabled
+     * @param disabledControls -- if true -- allows generator to create disabled controls or checked (in case of radiobutton/checkbox)
+     * @param noise            -- if true -- add a chance to generate image with some random noise
+     * @param isSorted         -- should be true if we generate sorted images and false if unsorted
+     */
     private void generateImage(ControlTypes object, int i, boolean contrast, boolean disabledControls, boolean noise, boolean isSorted) {
         Component c = object.getObject(isThreaded); //Create an object
         generateObject(c, contrast, disabledControls); //Void to set some basic object params
         JFrame frame = new JFrame();
         JPanel TempJPanel = new javax.swing.JPanel();
         int noiseAmount = 0;
-        while (generateNumber(0, 3) == 2 && noise) {
+        while (generateNumber(0, 3) == 2 && noise) { //Adding noise
             JPanel jNoise = generateNoise();
             TempJPanel.add(jNoise);
             noiseAmount++;
@@ -87,6 +108,13 @@ public class Generator {
         frame.dispose();
     }
 
+    /**
+     * Processing basic properties of control
+     *
+     * @param c                -- object
+     * @param contrast         -- if true -- high contrast algorithm should be enabled
+     * @param disabledControls -- if true -- allows generator to create disabled controls or checked (in case of radiobutton/checkbox)
+     */
     private void generateObject(Component c, boolean contrast, boolean disabledControls) {
         Random rand = new Random();
         boolean b;
@@ -106,7 +134,7 @@ public class Generator {
             generateRGB(0, 255, R, G, B);
         }
         c.setForeground(new Color(R, G, B));
-        if (c.getHeight() == 0 && c.getWidth() == 0) {
+        if (c.getHeight() == 0 && c.getWidth() == 0) { //changing position of control, if it has 0.0 coordinates
             Integer height = generateNumber(ConstCollection.MIN_OBJECT_HEIGHT, ConstCollection.MAX_OBJECT_HEIGHT);
             Integer width = generateNumber(ConstCollection.MIN_OBJECT_WIDTH, ConstCollection.MAX_OBJECT_WIDTH);
             c.setBounds(generateNumber(5, ConstCollection.IMAGE_WIDTH - 5 - width),
@@ -119,6 +147,11 @@ public class Generator {
         }
     }
 
+    /**
+     * Generating noise (random rectangle)
+     *
+     * @return generated figure
+     */
     private JPanel generateNoise() {
         JPanel temp = new JPanel();
         temp.setBounds(
@@ -132,11 +165,15 @@ public class Generator {
         return temp;
     }
 
+    /**
+     * @param frame
+     * @param TempJPanel
+     */
     private void fillFrame(JFrame frame, JPanel TempJPanel) {
         frame.setPreferredSize(new Dimension(ConstCollection.IMAGE_WIDTH, ConstCollection.IMAGE_HEIGHT));
         frame.setBounds(
-                generateNumber(150*threadNumber, 300 * threadNumber), //Position of invisible frame is set this way to prevent
-                generateNumber(150*threadNumber, 300 * threadNumber), //two different frames being on the same position (controls may combine this way then)
+                generateNumber(150 * threadNumber, 300 * threadNumber), //Position of invisible frame is set this way to prevent
+                generateNumber(150 * threadNumber, 300 * threadNumber), //two different frames being on the same position (controls may combine this way then)
                 ConstCollection.IMAGE_WIDTH,
                 ConstCollection.IMAGE_HEIGHT
         );
@@ -145,90 +182,108 @@ public class Generator {
         frame.getContentPane().add(TempJPanel);
     }
 
+    /**
+     * Generating random number for positions, colours
+     *
+     * @param min -- min value
+     * @param max -- max value
+     * @return random number
+     */
     private Integer generateNumber(int min, int max) {
         Random rand = new Random();
         Integer number = rand.nextInt(max - min) + min;
         return number;
     }
 
+    /**
+     * Generating random colour
+     *
+     * @param min -- min value of colour scheme
+     * @param max -- max value of colour scheme
+     * @param R   -- red
+     * @param G   -- green
+     * @param B   -- blue
+     * @return random colour in RGB
+     */
     private void generateRGB(int min, int max, int R, int G, int B) {
         this.R = generateNumber(min, max);
         this.G = generateNumber(min, max);
         this.B = generateNumber(min, max);
     }
 
+    //Creating folders in the certain directory (PATH - default)
     private void createFolders() {
-        if (directoryCreated == false) {
+        if (directoryCreated == false) { //check if folders exist
             File folder = new File(ConstCollection.PATH);
             if (!folder.exists()) {
                 if (folder.mkdir()) {
-                  LogWriter.log("Directory Dataset is created");
+                    LogWriter.log("Directory Dataset is created");
                 } else {
-                  LogWriter.log("Failed to create directory");
+                    LogWriter.log("Failed to create directory");
                 }
             }
             File folderUnsorted = new File(ConstCollection.PATH + "/" + "unsorted");
             if (!folderUnsorted.exists()) {
                 if (folderUnsorted.mkdir()) {
-                  LogWriter.log("Directory unsorted is created");
+                    LogWriter.log("Directory unsorted is created");
                 } else {
-                  LogWriter.log("Failed to create directory");
+                    LogWriter.log("Failed to create directory");
                 }
             }
             File folderSorted = new File(ConstCollection.PATH + "/" + "sorted");
             if (!folderSorted.exists()) {
                 if (folderSorted.mkdir()) {
-                  LogWriter.log("Directory sorted is created");
+                    LogWriter.log("Directory sorted is created");
                 } else {
-                  LogWriter.log("Failed to create directory");
+                    LogWriter.log("Failed to create directory");
                 }
             }
             File folderCheckbox = new File(ConstCollection.PATH + "/" + "sorted" + "/" + "checkbox");
             if (!folderCheckbox.exists()) {
                 if (folderCheckbox.mkdir()) {
-                  LogWriter.log("Directory checkbox is created");
+                    LogWriter.log("Directory checkbox is created");
                 } else {
-                  LogWriter.log("Failed to create directory");
+                    LogWriter.log("Failed to create directory");
                 }
             }
             File folderTextField = new File(ConstCollection.PATH + "/" + "sorted" + "/" + "textfield");
             if (!folderTextField.exists()) {
                 if (folderTextField.mkdir()) {
-                  LogWriter.log("Directory textfield is created");
+                    LogWriter.log("Directory textfield is created");
                 } else {
-                  LogWriter.log("Failed to create directory");
+                    LogWriter.log("Failed to create directory");
                 }
             }
             File folderRadioBtn = new File(ConstCollection.PATH + "/" + "sorted" + "/" + "radiobutton");
             if (!folderRadioBtn.exists()) {
                 if (folderRadioBtn.mkdir()) {
-                  LogWriter.log("Directory radiobutton is created");
+                    LogWriter.log("Directory radiobutton is created");
                 } else {
-                  LogWriter.log("Failed to create directory");
+                    LogWriter.log("Failed to create directory");
                 }
             }
             File folderSpinner = new File(ConstCollection.PATH + "/" + "sorted" + "/" + "spinner");
             if (!folderSpinner.exists()) {
                 if (folderSpinner.mkdir()) {
-                  LogWriter.log("Directory spinner is created");
+                    LogWriter.log("Directory spinner is created");
                 } else {
-                  LogWriter.log("Failed to create directory");
+                    LogWriter.log("Failed to create directory");
                 }
             }
             File folderSlider = new File(ConstCollection.PATH + "/" + "sorted" + "/" + "slider");
             if (!folderSlider.exists()) {
                 if (folderSlider.mkdir()) {
-                  LogWriter.log("Directory slider is created");
+                    LogWriter.log("Directory slider is created");
                 } else {
-                  LogWriter.log("Failed to create directory");
+                    LogWriter.log("Failed to create directory");
                 }
             }
             File folderButton = new File(ConstCollection.PATH + "/" + "sorted" + "/" + "button");
             if (!folderButton.exists()) {
                 if (folderButton.mkdir()) {
-                  LogWriter.log("Directory button is created");
+                    LogWriter.log("Directory button is created");
                 } else {
-                  LogWriter.log("Failed to create directory");
+                    LogWriter.log("Failed to create directory");
                 }
             }
             directoryCreated = true;
@@ -237,6 +292,14 @@ public class Generator {
         }
     }
 
+    /**
+     * Saving created image
+     *
+     * @param bi       -- created image
+     * @param object   -- control's type
+     * @param number   -- generated images counter
+     * @param isSorted -- should be true if we generate sorted images and false if unsorted
+     */
     private void saveImage(BufferedImage bi, ControlTypes object, int number, Boolean isSorted) {
         String id = Integer.toString(number);
         String newpath = ConstCollection.PATH;
@@ -249,7 +312,7 @@ public class Generator {
                 ImageIO.write(bi, "png", outputfile);
             }
         } catch (IOException ex) {
-          LogWriter.log(ex.getMessage());
+            LogWriter.log(ex.getMessage());
         }
     }
 
