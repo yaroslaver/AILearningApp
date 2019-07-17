@@ -20,27 +20,39 @@ public class Generator {
     boolean directoryCreated = false;
     private int threadNumber;
     private boolean isThreaded = false;
+    private int cyclesForProgress = 0;
 
 
     public void createSamples(ControlTypes object, int minNumber, int maxNumber, boolean contrast, boolean disabledControls,
                               boolean noise, boolean isSorted, int threadNumber) {
-        if (threadNumber!=null) {
+        if (!threadNumber.equals(-1)) {
             this.threadNumber = threadNumber;
             isThreaded = true;
         } else {
-            this.threadNumber = 1; //need to set this as 1 because it's used as a multiplier in fillFrame void
             isThreaded = false;
+            this.threadNumber = 1;
         }
+        cyclesForProgress = (maxNumber - minNumber) % 100;
         if (object != null) {
             //countControls(object.name(), maxNumber - minNumber);
+            int currentCycle = 0;
             for (int i = minNumber; i < maxNumber; i++) {
                 generateImage(object, i, contrast, disabledControls, noise, isSorted);
+                currentCycle++;
+                if (currentCycle == cyclesForProgress){
+                    GeneratorRetranslator.setProgress(currentCycle);
+                }
             }
         } else {
+            int currentCycle = 0;
             for (int i = minNumber; i < maxNumber; i++) {
                 ControlTypes newObject = ControlTypes.BUTTON; //Using any as default
                 newObject = newObject.getRandomObject(); //Changing to really random object
                 generateImage(newObject, i, contrast, disabledControls, noise, isSorted);
+                currentCycle++;
+                if (currentCycle == cyclesForProgress){
+                    GeneratorRetranslator.setProgress(currentCycle);
+                }
                 //countControls(newObject.name(), 1);
             }
         }

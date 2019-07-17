@@ -68,11 +68,19 @@ public class GeneratorRetranslator {
             LogWriter.log("Generation started in single thread.");
             Generator gen = new Generator();
             if (list == null) {
-                gen.createSamples(null,0,  amount, contrast, disabledControls, noise, isSorted, null);
+                gen.createSamples(null, 0,  amount, contrast, disabledControls, noise, isSorted, -1);
             } else {
-                list.forEach((control) -> gen.createSamples(control, 0, amount, contrast, disabledControls, noise, isSorted, null));
+                list.forEach((control) -> gen.createSamples(control, 0, amount, contrast, disabledControls, noise, isSorted, -1));
             }
             LogWriter.log("Generation finished\r\n");
         }
+    }
+
+    public static synchronized void setProgress(int amount){
+        progress += amount;
+    }
+
+    public static int getProgress(){
+        return progress;
     }
 }
