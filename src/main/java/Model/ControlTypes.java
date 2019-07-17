@@ -42,7 +42,10 @@ public enum ControlTypes {
     private final String LETTERS = "abcdefghijklmnopqrstuvxyz";
     private final char[] CHARS = (LETTERS + LETTERS.toUpperCase() + "0123456789").toCharArray();
 
-    //return Component corresponding to current element of enum
+    /**
+     * @return Component corresponding to current element of enum
+     * @param isThreaded is True when multithreading system is used
+     */
     public Component getObject(boolean isThreaded) {
         //use different styles of controls only in single-thread processing
         if (!isThreaded) {
@@ -124,17 +127,25 @@ public enum ControlTypes {
         }
     }
 
-    //return random int in bounds from min to max
+    /**
+     * @return random int in bounds
+     * @param min min bound
+     * @param max max bound
+     */
     public int getRandomInt(int min, int max) {
         return ThreadLocalRandom.current().nextInt(min, max + 1);
     }
 
-    //return random boolean
+    /**
+     * @return random boolean
+     */
     public boolean getRandomBool(){
         return ThreadLocalRandom.current().nextBoolean();
     }
 
-    //return random string consisting of digits and english letters with length from 3 to 12 symbols
+    /**
+     * @return random string consisting of digits and english letters with length from 3 to 12 symbols
+     */
     public String getRandomString() {
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < getRandomInt(MIN_CONTROL_VALUE_SIZE, MAX_CONTROL_VALUE_SIZE); i++) {
@@ -143,12 +154,16 @@ public enum ControlTypes {
         return result.toString();
     }
 
-    //return random element of enum
+    /**
+     * @return random element of enum
+     */
     public ControlTypes getRandomObject() {
         return values()[getRandomInt(0, SIZE - 1)];
     }
 
-    //return string name of current element of enum
+    /**
+     * @return string name of current element of enum
+     */
     public String getFolderName() {
         return this.name().toLowerCase();
     }
