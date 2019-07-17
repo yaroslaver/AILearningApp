@@ -24,15 +24,15 @@ public class Generator {
 
 
     public void createSamples(ControlTypes object, int minNumber, int maxNumber, boolean contrast, boolean disabledControls,
-                              boolean noise, boolean isSorted, int threadNumber) {
+                              boolean noise, boolean isSorted, Integer threadNumber) {
         if (!threadNumber.equals(-1)) {
             this.threadNumber = threadNumber;
             isThreaded = true;
         } else {
+            this.threadNumber = 1; //need to set this as 1 because it's used as a multiplier in fillFrame void
             isThreaded = false;
-            this.threadNumber = 1;
         }
-        cyclesForProgress = (maxNumber - minNumber) % 100;
+        cyclesForProgress = (maxNumber - minNumber) % 100; //uses to update value of generated 
         if (object != null) {
             //countControls(object.name(), maxNumber - minNumber);
             int currentCycle = 0;

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 public class GeneratorRetranslator {
 
+    private static int progress = 0;
     /**
      * @param list all types of controls that should be generated, should be null in case of unsorted generation
      * @param amount amount of each control type to be generated, in case of unsorted generation - amount of all unsorted images
@@ -80,7 +81,7 @@ public class GeneratorRetranslator {
         progress += amount;
     }
 
-    public static int getProgress(){
+    public int getProgress(){
         return progress;
     }
 }
