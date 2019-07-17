@@ -23,7 +23,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
 
-
+/**
+ * This class controls all actions, which can happen in main window of the application.
+ * @author Erokhin Yaroslav
+ * @author Revtova Natalya
+ * @author Timoshevsky Georgy
+ * @since 1.0
+ */
 public class ControllerUI {
 
     @FXML
@@ -80,6 +86,9 @@ public class ControllerUI {
     public static String mainFolder = "";
 
 
+    /**
+     * Method is called, when main window is open.
+     */
     @FXML
     private void initialize() {
         setSettingsToPreviewField();
@@ -87,9 +96,12 @@ public class ControllerUI {
         showManual();
         selectFolder();
         setControlsActions();
-
     }
 
+    /**
+     * Method attaches EventHandler to the help button.
+     * EventHandler shows manual window with defined parameters.
+     */
     @FXML
     private void showManual() {
         helpButton.setOnAction(event -> {
@@ -113,6 +125,11 @@ public class ControllerUI {
     }
 
 
+    /**
+     * Method attaches EventHandler to the folderSelectionButton.
+     * EventHandler offers to choose folder for images.
+     * If folder wasn't chosen, alert message shows.
+     */
     private void selectFolder() {
 
         folderSelectionButton.setOnAction(event -> {
@@ -138,7 +155,10 @@ public class ControllerUI {
 
     }
 
-
+    /**
+     * Method shows alert message.
+     * @param error error message
+     */
     private void showAlert(String error) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("ATTENTION");
@@ -149,6 +169,9 @@ public class ControllerUI {
         alert.showAndWait();
     }
 
+    /**
+     * Method sets some settings to the previewField.
+     */
     private void setSettingsToPreviewField() {
         previewField.setHgap(5);
         previewField.setVgap(5);
@@ -157,6 +180,10 @@ public class ControllerUI {
         previewField.setColumnHalignment(HPos.LEFT);
     }
 
+    /**
+     * Method attaches EventHandlers to control checkboxes. If checkbox is selected,
+     * then control appears in the previewField.
+     */
     private void setControlsActions() {
         hasTextField.setOnAction(event -> {
             if (hasTextField.isSelected()) {
@@ -213,6 +240,11 @@ public class ControllerUI {
         });
     }
 
+    /**
+     * Method set EventHandler to the generateButton.
+     * If input is correct, then images start generate.
+     * Else the application shows the alert message.
+     */
     private void setGenerateButtonAction() {
         generateButton.setOnAction(event -> {
             quantityField.setText(quantityField.getText().trim());
@@ -232,6 +264,11 @@ public class ControllerUI {
                 quantityField.setText("");
                 showAlert("The quantity of controls must be positive.\n" +
                         "Please enter the correct quantity of controls.");
+                return;
+            }
+            if (inputQuantity > 1000000) {
+                quantityField.setText("");
+                showAlert("The quantity is too big.");
                 return;
             }
 
@@ -274,9 +311,8 @@ public class ControllerUI {
 
             GeneratorRetranslator generator = new GeneratorRetranslator();
             generator.startGenerator(controlsList, inputQuantity, hasHighContrast.isSelected(),
-                    isDisabled.isSelected(), hasNoise.isSelected(), !isUnsorted.isSelected());
+                    isDisabled.isSelected(), hasNoise.isSelected(), !isUnsorted.isSelected(), true);
         });
 
     }
-
 }
