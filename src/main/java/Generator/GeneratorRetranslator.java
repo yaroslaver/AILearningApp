@@ -8,17 +8,22 @@ import java.util.ArrayList;
 public class GeneratorRetranslator {
 
     private static int progress = 0;
+    private static String path = ConstCollection.PATH;
+
     /**
-     * @param list all types of controls that should be generated, should be null in case of unsorted generation
-     * @param amount amount of each control type to be generated, in case of unsorted generation - amount of all unsorted images
-     * @param contrast if high contrast algorithm should be enabled or not
-     * @param disabledControls if true allows generator to create disabled controls or checked (in case of radiobutton/checkbox)
-     * @param noise if true add a chance to generate image with some random noise
-     * @param isSorted should be true if we generate sorted images and false if unsorted
-     * @param Threaded should be true if multithreading system should be used
+     * @param list             -- all types of controls that should be generated, should be null in case of unsorted generation
+     * @param amount           -- amount of each control type to be generated, in case of unsorted generation -- amount of all unsorted images
+     * @param contrast         -- if high contrast algorithm should be enabled or not
+     * @param disabledControls --if true -- allows generator to create disabled controls or checked (in case of radiobutton/checkbox)
+     * @param noise            -- if true -- add a chance to generate image with some random noise
+     * @param isSorted         -- should be true if we generate sorted images and false if unsorted
+     * @param Threaded         -- should be true if multithreading system should be used
      */
     public void startGenerator(ArrayList<ControlTypes> list, int amount, boolean contrast, boolean disabledControls,
-                               boolean noise, boolean isSorted, boolean Threaded) {
+                               boolean noise, boolean isSorted, boolean Threaded, String path) {
+        if (path != null){
+            this.path = path;
+        }
         if (Threaded) {
             GeneratorThread[] Threads = new GeneratorThread[ConstCollection.THREAD_COUNT];
             LogWriter.log("Generation started in " + ConstCollection.THREAD_COUNT + " threads.");
@@ -69,7 +74,7 @@ public class GeneratorRetranslator {
             LogWriter.log("Generation started in single thread.");
             Generator gen = new Generator();
             if (list == null) {
-                gen.createSamples(null, 0,  amount, contrast, disabledControls, noise, isSorted, -1);
+                gen.createSamples(null, 0, amount, contrast, disabledControls, noise, isSorted, -1);
             } else {
                 list.forEach((control) -> gen.createSamples(control, 0, amount, contrast, disabledControls, noise, isSorted, -1));
             }
@@ -77,11 +82,15 @@ public class GeneratorRetranslator {
         }
     }
 
-    public static synchronized void setProgress(int amount){
+    public static synchronized void setProgress(int amount) {
         progress += amount;
     }
 
-    public int getProgress(){
+    public int getProgress() {
         return progress;
+    }
+
+    public static String getPath(){
+        return path;
     }
 }

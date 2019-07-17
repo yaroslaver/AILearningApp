@@ -12,7 +12,7 @@ import java.util.Date;
 public class LogWriter {
 
   synchronized static public void log(String temp) {
-    String tempPath = ConstCollection.PATH + "/log.txt";
+    String tempPath = GeneratorRetranslator.getPath() + "/log.txt";
     File tempfile = new File(tempPath);
     if (!tempfile.exists()){
       tempfile.getParentFile().mkdirs();

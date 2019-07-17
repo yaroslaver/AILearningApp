@@ -130,11 +130,14 @@ public class ControllerUI {
     private void checkSavingFolder() {
         try(Scanner scanner = new Scanner(new File("settings\\folderForSaving.txt"))) {
             mainFolder = scanner.nextLine();
+            if (!new File(mainFolder).exists()) {
+                mainFolder = "";
+                System.err.println("Incorrect path to saving folder");
+            }
         }
         catch (FileNotFoundException ex) {
             System.err.println("Can't find file folderForSaving.txt");
         }
-
     }
 
     /**
@@ -165,8 +168,10 @@ public class ControllerUI {
                     }
                     showAlert("Selected folder: " + folder.getAbsolutePath());
                 } else {
-                    showAlert("Path is empty.\n" +
-                            "Please enter the correct path to the folder");
+                    if (mainFolder.equals("")) {
+                        showAlert("Path is empty.\n" +
+                                "Please enter the correct path to the folder");
+                    }
                 }
             }
             catch (Exception ex) {
@@ -331,9 +336,27 @@ public class ControllerUI {
                 return;
             }
             GeneratorRetranslator generator = new GeneratorRetranslator();
+//            ProgressThread progressThread = new ProgressThread(generator);
+//            progressThread.start();
             generator.startGenerator(controlsList, inputQuantity, hasHighContrast.isSelected(),
-                    isDisabled.isSelected(), hasNoise.isSelected(), !isUnsorted.isSelected(), true);
+                    isDisabled.isSelected(), hasNoise.isSelected(), !isUnsorted.isSelected(), true, mainFolder);
         });
 
     }
+
+//    private class ProgressThread extends Thread {
+//        GeneratorRetranslator generator;
+//
+//        public ProgressThread(GeneratorRetranslator generator) {
+//            this.generator = generator;
+//        }
+//
+//        @Override
+//        public void run() {
+//            while (generator.getProgress() < 50) {
+//                System.out.println(generator.getProgress());
+//                progressBar.setProgress(generator.getProgress());
+//            }
+//        }
+//    }
 }
