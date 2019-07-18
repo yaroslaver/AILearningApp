@@ -43,8 +43,8 @@ public enum ControlTypes {
     private final char[] CHARS = (LETTERS + LETTERS.toUpperCase() + "0123456789").toCharArray();
 
     /**
+     * @param isThreaded -- is True when multithreading system is used
      * @return Component corresponding to current element of enum
-     * @param isThreaded is True when multithreading system is used
      */
     public Component getObject(boolean isThreaded) {
         //use different styles of controls only in single-thread processing
@@ -128,25 +128,25 @@ public enum ControlTypes {
     }
 
     /**
+     * @param min -- min bound
+     * @param max -- max bound
      * @return random int in bounds
-     * @param min min bound
-     * @param max max bound
      */
-    public int getRandomInt(int min, int max) {
+    private int getRandomInt(int min, int max) {
         return ThreadLocalRandom.current().nextInt(min, max + 1);
     }
 
     /**
      * @return random boolean
      */
-    public boolean getRandomBool(){
+    private boolean getRandomBool(){
         return ThreadLocalRandom.current().nextBoolean();
     }
 
     /**
      * @return random string consisting of digits and english letters with length from 3 to 12 symbols
      */
-    public String getRandomString() {
+    private String getRandomString() {
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < getRandomInt(MIN_CONTROL_VALUE_SIZE, MAX_CONTROL_VALUE_SIZE); i++) {
             result.append(CHARS[ThreadLocalRandom.current().nextInt(CHARS.length)]);

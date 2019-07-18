@@ -305,7 +305,7 @@ public class Generator {
      * @param isSorted -- should be true if we generate sorted images and false if unsorted
      */
     private void saveImage(BufferedImage bi, ControlTypes object, int number, Boolean isSorted) {
-    private void saveImage(BufferedImage bi, ControlTypes object, int number, Boolean isSorted) {
+    //private void saveImage(BufferedImage bi, ControlTypes object, int number, Boolean isSorted) {
         String id = Integer.toString(number);
         try {
             if (isSorted) {
