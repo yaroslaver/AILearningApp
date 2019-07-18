@@ -64,9 +64,11 @@ public class GeneratorRetranslator {
                 }
 
                 for (Thread currThread : Threads) {
-                    while (currThread.isAlive()) {
+                    if (currThread!=null) {
+                        while (currThread.isAlive()) {
 
-                    }
+                        }
+					}
                 }
                 LogWriter.log("Generation finished\r\n");
             }
