@@ -10,6 +10,9 @@ import java.util.Arrays;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ControlTypesTest {
+    /**
+     * Check getObject() for every type of control and for both states of method arg 'isThreaded' on not null return
+     */
     @Test
     void getObjectNotNullReturnTest() {
         ControlTypes control = ControlTypes.CHECKBOX;
@@ -31,24 +34,42 @@ public class ControlTypesTest {
         assertNotNull(control.getObject(false));
         assertNotNull(control.getObject(true));
     }
+
+    /**
+     * Check getObject() for CheckBox and for both states of method arg 'isThreaded' on correct text filling of control
+     */
     @Test
     void getObjectCheckBoxWithSetValuesReturnTest() {
         ControlTypes control = ControlTypes.CHECKBOX;
         assertNotEquals("", ((JCheckBox) control.getObject(false)).getText());
         assertNotEquals("", ((JCheckBox) control.getObject(true)).getText());
     }
+
+    /**
+     * Check getObject() for TextField and for both states of method arg 'isThreaded' on correct text filling of control
+     */
     @Test
     void getObjectTextFieldWithSetValuesReturnTest() {
         ControlTypes control = ControlTypes.TEXTFIELD;
         assertNotEquals("", ((JTextField) control.getObject(false)).getText());
         assertNotEquals("", ((JTextField) control.getObject(true)).getText());
     }
+
+    /**
+     * Check getObject() for RadioButton and for both states of method arg 'isThreaded' on correct text filling
+     * of control
+     */
     @Test
     void getObjectRadioButtonWithSetValuesReturnTest() {
         ControlTypes control = ControlTypes.RADIOBUTTON;
         assertNotEquals("", ((JRadioButton) control.getObject(false)).getText());
         assertNotEquals("", ((JRadioButton) control.getObject(true)).getText());
     }
+
+    /**
+     * Check getObject() for Slider and for both states of method arg 'isThreaded' on correct setting the orientation
+     * and size of control
+     */
     @Test
     void getObjectSliderWithSetValuesReturnTest() {
         ControlTypes control = ControlTypes.SLIDER;
@@ -57,12 +78,20 @@ public class ControlTypesTest {
         assertEquals(JSlider.HORIZONTAL, ((JSlider) control.getObject(true)).getOrientation());
         assertNotEquals(new Dimension(0,0), control.getObject(true).getSize());
     }
+
+    /**
+     * Check getObject() for Button and for both states of method arg 'isThreaded' on correct text filling of control
+     */
     @Test
     void getObjectButtonWithSetValuesReturnTest() {
         ControlTypes control = ControlTypes.BUTTON;
         assertNotEquals("", ((JButton) control.getObject(false)).getText());
         assertNotEquals("", ((JButton) control.getObject(true)).getText());
     }
+
+    /**
+     * Check getRandomObject() for every type of control on not null return
+     */
     @Test
     void getRandomObjectNotNullReturnTest() {
         ControlTypes control = ControlTypes.CHECKBOX;
@@ -78,12 +107,20 @@ public class ControlTypesTest {
         control = ControlTypes.BUTTON;
         assertNotNull(control.getRandomObject());
     }
+
+    /**
+     * Check getRandomObject() for containing of method result in ControlTypes enum
+     */
     @Test
     void getRandomObjectControlFromEnumReturnTest() {
         ControlTypes control = ControlTypes.BUTTON;
         ArrayList list = new ArrayList<>(Arrays.asList(ControlTypes.values()));
         assertTrue(list.contains(control.getRandomObject()));
     }
+
+    /**
+     * Check getFolderName() for every type of control on correct return
+     */
     @Test
     void getFolderNameReturnTest() {
         ControlTypes control = ControlTypes.CHECKBOX;
