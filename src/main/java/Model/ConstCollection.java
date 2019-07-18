@@ -1,5 +1,10 @@
 package Model;
 
+/**
+ * This class contains constants needed for the application
+ * @author Satyukov Egor
+ * @since 1.0
+ */
 public class ConstCollection {
     //final image size
     public static final int IMAGE_WIDTH        = 150;

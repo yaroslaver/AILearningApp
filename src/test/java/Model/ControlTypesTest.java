@@ -9,9 +9,15 @@ import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * This class contains tests for ControlTypes enum
+ * @author Satyukov Egor
+ * @since 1.0
+ */
 public class ControlTypesTest {
     /**
-     * Check getObject() for every type of control and for both states of method arg 'isThreaded' on not null return
+     * Check getObject() for every type of control and for both states of method argument 'isThreaded'
+     * on not null return
      */
     @Test
     void getObjectNotNullReturnTest() {
@@ -36,7 +42,8 @@ public class ControlTypesTest {
     }
 
     /**
-     * Check getObject() for CheckBox and for both states of method arg 'isThreaded' on correct text filling of control
+     * Check getObject() for CheckBox and for both states of method argument 'isThreaded' on correct text filling
+     * of control
      */
     @Test
     void getObjectCheckBoxWithSetValuesReturnTest() {
@@ -46,7 +53,8 @@ public class ControlTypesTest {
     }
 
     /**
-     * Check getObject() for TextField and for both states of method arg 'isThreaded' on correct text filling of control
+     * Check getObject() for TextField and for both states of method argument 'isThreaded' on correct text filling
+     * of control
      */
     @Test
     void getObjectTextFieldWithSetValuesReturnTest() {
@@ -56,7 +64,7 @@ public class ControlTypesTest {
     }
 
     /**
-     * Check getObject() for RadioButton and for both states of method arg 'isThreaded' on correct text filling
+     * Check getObject() for RadioButton and for both states of method argument 'isThreaded' on correct text filling
      * of control
      */
     @Test
@@ -67,8 +75,8 @@ public class ControlTypesTest {
     }
 
     /**
-     * Check getObject() for Slider and for both states of method arg 'isThreaded' on correct setting the orientation
-     * and size of control
+     * Check getObject() for Slider and for both states of method argument 'isThreaded' on correct setting
+     * the orientation and size of control
      */
     @Test
     void getObjectSliderWithSetValuesReturnTest() {
@@ -80,7 +88,8 @@ public class ControlTypesTest {
     }
 
     /**
-     * Check getObject() for Button and for both states of method arg 'isThreaded' on correct text filling of control
+     * Check getObject() for Button and for both states of method argument 'isThreaded' on correct text filling
+     * of control
      */
     @Test
     void getObjectButtonWithSetValuesReturnTest() {
