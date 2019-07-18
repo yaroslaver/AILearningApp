@@ -2,6 +2,7 @@ package UI;
 
 import Generator.GeneratorRetranslator;
 import Model.ControlTypes;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.HPos;
@@ -111,14 +112,12 @@ public class ControllerUI {
                 stage.setScene(new Scene(root));
                 stage.setResizable(false);
                 stage.initModality(Modality.WINDOW_MODAL);
-                stage.initOwner(((Node)event.getSource()).getScene().getWindow());
+                stage.initOwner(((Node) event.getSource()).getScene().getWindow());
                 stage.getIcons().add(new Image("images/icon.png"));
                 stage.show();
-            }
-            catch (NullPointerException ex) {
+            } catch (NullPointerException ex) {
                 System.err.println("File .fxml was not found");
-            }
-            catch (IOException ex) {
+            } catch (IOException ex) {
                 System.err.println(ex.getMessage());
             }
         });
@@ -128,14 +127,13 @@ public class ControllerUI {
      * Method looking for a folder for saving images.
      */
     private void checkSavingFolder() {
-        try(Scanner scanner = new Scanner(new File("settings\\folderForSaving.txt"))) {
+        try (Scanner scanner = new Scanner(new File("settings\\folderForSaving.txt"))) {
             mainFolder = scanner.nextLine();
             if (!new File(mainFolder).exists()) {
                 mainFolder = "";
                 System.err.println("Incorrect path to saving folder");
             }
-        }
-        catch (FileNotFoundException ex) {
+        } catch (FileNotFoundException ex) {
             System.err.println("Can't find file folderForSaving.txt");
         }
     }
@@ -160,10 +158,9 @@ public class ControllerUI {
                 if (folder != null) {
                     mainFolder = folder.getAbsolutePath();
                     new File("settings").mkdir();
-                    try(FileWriter fileWriter = new FileWriter("settings\\folderForSaving.txt")) {
+                    try (FileWriter fileWriter = new FileWriter("settings\\folderForSaving.txt")) {
                         fileWriter.write(mainFolder);
-                    }
-                    catch (IOException ex) {
+                    } catch (IOException ex) {
                         System.err.println("Can't open or create file folderForSaving.txt");
                     }
                     showAlert("Selected folder: " + folder.getAbsolutePath());
@@ -173,8 +170,7 @@ public class ControllerUI {
                                 "Please enter the correct path to the folder");
                     }
                 }
-            }
-            catch (Exception ex) {
+            } catch (Exception ex) {
                 System.err.println(ex.getMessage());
             }
 
@@ -184,6 +180,7 @@ public class ControllerUI {
 
     /**
      * Method shows alert message.
+     *
      * @param error error message
      */
     private void showAlert(String error) {
@@ -215,8 +212,7 @@ public class ControllerUI {
         hasTextField.setOnAction(event -> {
             if (hasTextField.isSelected()) {
                 previewField.getChildren().add(new TextField("TextField"));
-            }
-            else {
+            } else {
                 previewField.getChildren().removeIf(n -> (n instanceof TextField));
             }
         });
@@ -224,8 +220,7 @@ public class ControllerUI {
         hasCheckBox.setOnAction(event -> {
             if (hasCheckBox.isSelected()) {
                 previewField.getChildren().add(new CheckBox("CheckBox"));
-            }
-            else {
+            } else {
                 previewField.getChildren().removeIf(n -> (n instanceof CheckBox));
             }
         });
@@ -233,8 +228,7 @@ public class ControllerUI {
         hasRadioButton.setOnAction(event -> {
             if (hasRadioButton.isSelected()) {
                 previewField.getChildren().add(new RadioButton("RadioButton"));
-            }
-            else {
+            } else {
                 previewField.getChildren().removeIf(n -> (n instanceof RadioButton));
             }
         });
@@ -242,8 +236,7 @@ public class ControllerUI {
         hasSlider.setOnAction(event -> {
             if (hasSlider.isSelected()) {
                 previewField.getChildren().add(new Slider());
-            }
-            else {
+            } else {
                 previewField.getChildren().removeIf(n -> (n instanceof Slider));
             }
         });
@@ -251,8 +244,7 @@ public class ControllerUI {
         hasButton.setOnAction(event -> {
             if (hasButton.isSelected()) {
                 previewField.getChildren().add(new Button("Button"));
-            }
-            else {
+            } else {
                 previewField.getChildren().removeIf(n -> (n instanceof Button));
             }
         });
@@ -260,8 +252,7 @@ public class ControllerUI {
         hasSpinner.setOnAction(event -> {
             if (hasSpinner.isSelected()) {
                 previewField.getChildren().add(new Spinner<>());
-            }
-            else {
+            } else {
                 previewField.getChildren().removeIf(n -> (n instanceof Spinner));
             }
         });
@@ -280,8 +271,7 @@ public class ControllerUI {
 
             try {
                 inputQuantity = Integer.valueOf(quantityField.getText());
-            }
-            catch (NumberFormatException ex) {
+            } catch (NumberFormatException ex) {
                 quantityField.setText("");
                 showAlert("The number of controls must be an integer. \n" +
                         "Please enter the correct quantity of controls.");
@@ -300,7 +290,7 @@ public class ControllerUI {
             }
 
             ArrayList<ControlTypes> controlsList = new ArrayList<>(6);
-            for (Node control: previewField.getChildren()) {
+            for (Node control : previewField.getChildren()) {
                 if (control instanceof TextField) {
                     controlsList.add(ControlTypes.TEXTFIELD);
                 } else {
@@ -313,7 +303,7 @@ public class ControllerUI {
                             if (control instanceof Slider) {
                                 controlsList.add(ControlTypes.SLIDER);
                             } else {
-                                if (control instanceof  Button) {
+                                if (control instanceof Button) {
                                     controlsList.add(ControlTypes.BUTTON);
                                 } else {
                                     if (control instanceof Spinner) {
@@ -336,7 +326,12 @@ public class ControllerUI {
                 return;
             }
             GeneratorRetranslator generator = new GeneratorRetranslator();
-//            ProgressThread progressThread = new ProgressThread(generator);
+            ProgressUpdaterTasker progressUpdaterTasker = new ProgressUpdaterTasker(generator, inputQuantity * controlsList.size());
+            progressBar.progressProperty().bind(progressUpdaterTasker.progressProperty());
+            final Thread thread = new Thread(progressUpdaterTasker, "1");
+            thread.setDaemon(true);
+            thread.start();
+//            ProgressThread progressThread = new ProgressThread(generator, inputQuantity * controlsList.size());
 //            progressThread.start();
             generator.startGenerator(controlsList, inputQuantity, hasHighContrast.isSelected(),
                     isDisabled.isSelected(), hasNoise.isSelected(), !isUnsorted.isSelected(), true, mainFolder);
@@ -346,17 +341,44 @@ public class ControllerUI {
 
 //    private class ProgressThread extends Thread {
 //        GeneratorRetranslator generator;
+//        int totalQuantityOfControls;
 //
-//        public ProgressThread(GeneratorRetranslator generator) {
+//        public ProgressThread(GeneratorRetranslator generator, int totalQuantityOfControls) {
 //            this.generator = generator;
+//            this.totalQuantityOfControls = totalQuantityOfControls;
 //        }
 //
 //        @Override
 //        public void run() {
-//            while (generator.getProgress() < 50) {
-//                System.out.println(generator.getProgress());
-//                progressBar.setProgress(generator.getProgress());
+//            double currentProgress = 0.0;
+//            while (progressBar.getProgress() < 100.0) {
+//                currentProgress = (double) generator.getProgress() / totalQuantityOfControls * 100;
+//                progressBar.setProgress(currentProgress);
+//                System.out.println(currentProgress);
 //            }
 //        }
 //    }
+
+    private class ProgressUpdaterTasker extends Task<Void> {
+        GeneratorRetranslator generator;
+        int totalQuantityOfControls;
+
+        public ProgressUpdaterTasker(GeneratorRetranslator generator, int totalQuantityOfControls) {
+            this.generator = generator;
+            this.totalQuantityOfControls = totalQuantityOfControls;
+        }
+
+        @Override
+        protected Void call() throws Exception {
+            double currentProgress = 0.0;
+            while (progressBar.getProgress() < 100.0) {
+                currentProgress = (double) generator.getProgress() / totalQuantityOfControls * 100;
+                updateProgress(currentProgress, 100.0);
+                System.out.println(currentProgress);
+                Thread.sleep(10);
+            }
+            return null;
+        }
+
+    }
 }

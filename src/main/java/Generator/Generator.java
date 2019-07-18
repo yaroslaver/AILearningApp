@@ -43,27 +43,17 @@ public class Generator {
       this.threadNumber = 1; //need to set this as 1 because it's used as a multiplier in fillFrame void
       isThreaded = false;
     }
-    cyclesForProgress = (maxNumber - minNumber) % 100; //uses to update value of generated
     if (object != null) {
-      //countControls(object.name(), maxNumber - minNumber);
-      int currentCycle = 0;
       for (int i = minNumber; i < maxNumber; i++) {
         generateImage(object, i, contrast, disabledControls, noise, isSorted);
-        currentCycle++;
-        if (currentCycle == cyclesForProgress) {
-          GeneratorRetranslator.setProgress(currentCycle);
-        }
+        GeneratorRetranslator.setProgress(1);
       }
     } else {
-      int currentCycle = 0;
       for (int i = minNumber; i < maxNumber; i++) {
         ControlTypes newObject = ControlTypes.BUTTON; //Using any as default
         newObject = newObject.getRandomObject(); //Changing to really random object
         generateImage(newObject, i, contrast, disabledControls, noise, isSorted);
-        currentCycle++;
-        if (currentCycle == cyclesForProgress) {
-          GeneratorRetranslator.setProgress(currentCycle);
-        }
+        GeneratorRetranslator.setProgress(1);
         //countControls(newObject.name(), 1);
       }
     }

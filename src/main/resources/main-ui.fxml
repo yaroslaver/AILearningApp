@@ -63,7 +63,7 @@
             <Font size="15.0" />
          </font>
       </JFXCheckBox>
-      <ProgressBar fx:id="progressBar" blendMode="MULTIPLY" layoutX="30.0" layoutY="354.0" prefHeight="21.0" prefWidth="560.0" progress="0.61" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0">
+      <ProgressBar fx:id="progressBar" blendMode="MULTIPLY" layoutX="30.0" layoutY="354.0" prefHeight="21.0" prefWidth="560.0" progress="0.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0">
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
