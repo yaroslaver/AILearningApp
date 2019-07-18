@@ -1,5 +1,7 @@
 package Model;
 
+import Generator.LogWriter;
+
 import javax.swing.*;
 import javax.swing.text.Caret;
 import java.awt.*;
@@ -53,7 +55,7 @@ public enum ControlTypes {
                 UIManager.setLookAndFeel(LOOK_AND_FEEL[getRandomInt(0, LOOK_AND_FEEL.length - 1)]);
             } catch (ClassNotFoundException | InstantiationException
                     | IllegalAccessException | UnsupportedLookAndFeelException e) {
-                e.printStackTrace();
+                LogWriter.log(e.getMessage());
             }
         }
 
