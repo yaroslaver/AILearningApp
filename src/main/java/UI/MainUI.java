@@ -41,6 +41,24 @@ public class MainUI extends Application {
   }
 
   public static void main(String[] args) {
-    launch(args);
+    if (args.length == 0) {
+      launch(args);
+    } else {
+      CommandLineParser parser = new CommandLineParser();
+      try {
+        parser.parse(args);
+      }
+      catch (NumberFormatException ex) {
+        System.err.println("Incorrect type of value");
+        System.out.println("Type 'help' as argument for help");
+        System.exit(1);
+      }
+      catch (IllegalArgumentException ex) {
+        System.err.println(ex.getMessage());
+        System.out.println("Type 'help' as argument for help");
+        System.exit(1);
+      }
+      System.exit(0);
+    }
   }
 }
