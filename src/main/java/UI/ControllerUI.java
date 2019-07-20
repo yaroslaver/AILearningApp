@@ -1,6 +1,7 @@
 package UI;
 
 import Generator.GeneratorRetranslator;
+import Generator.LogWriter;
 import Model.ControlTypes;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
@@ -116,9 +117,9 @@ public class ControllerUI {
                 stage.getIcons().add(new Image("images/icon.png"));
                 stage.show();
             } catch (NullPointerException ex) {
-                System.err.println("File .fxml was not found");
+                LogWriter.log("File .fxml was not found");
             } catch (IOException ex) {
-                System.err.println(ex.getMessage());
+                LogWriter.log(ex.getMessage());
             }
         });
     }
@@ -131,10 +132,10 @@ public class ControllerUI {
             mainFolder = scanner.nextLine();
             if (!new File(mainFolder).exists()) {
                 mainFolder = "";
-                System.err.println("Incorrect path to saving folder");
+                LogWriter.log("Incorrect path to saving folder");
             }
         } catch (FileNotFoundException ex) {
-            System.err.println("Can't find file folderForSaving.txt");
+            LogWriter.log("Can't find file folderForSaving.txt");
         }
     }
 
@@ -161,7 +162,7 @@ public class ControllerUI {
                     try (FileWriter fileWriter = new FileWriter("settings\\folderForSaving.txt")) {
                         fileWriter.write(mainFolder);
                     } catch (IOException ex) {
-                        System.err.println("Can't open or create file folderForSaving.txt");
+                        LogWriter.log("Can't open or create file folderForSaving.txt");
                     }
                     showAlert("Selected folder: " + folder.getAbsolutePath());
                 } else {
@@ -171,7 +172,7 @@ public class ControllerUI {
                     }
                 }
             } catch (Exception ex) {
-                System.err.println(ex.getMessage());
+                LogWriter.log(ex.getMessage());
             }
 
         });

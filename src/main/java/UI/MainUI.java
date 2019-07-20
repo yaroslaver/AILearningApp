@@ -1,5 +1,6 @@
 package UI;
 
+import Generator.LogWriter;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -30,11 +31,11 @@ public class MainUI extends Application {
       stage.show();
     }
     catch (NullPointerException ex) {
-      System.err.println("File .fxml was not found");
+      LogWriter.log("File .fxml was not found");
       System.exit(1);
     }
     catch (IOException ex) {
-      System.err.println(ex.getMessage());
+      LogWriter.log(ex.getMessage());
       System.exit(-1);
     }
 

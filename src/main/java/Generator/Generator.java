@@ -43,17 +43,27 @@ public class Generator {
       this.threadNumber = 1; //need to set this as 1 because it's used as a multiplier in fillFrame void
       isThreaded = false;
     }
+    cyclesForProgress = (maxNumber - minNumber) % 100; //uses to update value of generated
     if (object != null) {
+      //countControls(object.name(), maxNumber - minNumber);
+      int currentCycle = 0;
       for (int i = minNumber; i < maxNumber; i++) {
         generateImage(object, i, contrast, disabledControls, noise, isSorted);
-        GeneratorRetranslator.setProgress(1);
+        currentCycle++;
+        if (currentCycle == cyclesForProgress) {
+          GeneratorRetranslator.setProgress(currentCycle);
+        }
       }
     } else {
+      int currentCycle = 0;
       for (int i = minNumber; i < maxNumber; i++) {
         ControlTypes newObject = ControlTypes.BUTTON; //Using any as default
         newObject = newObject.getRandomObject(); //Changing to really random object
         generateImage(newObject, i, contrast, disabledControls, noise, isSorted);
-        GeneratorRetranslator.setProgress(1);
+        currentCycle++;
+        if (currentCycle == cyclesForProgress) {
+          GeneratorRetranslator.setProgress(currentCycle);
+        }
         //countControls(newObject.name(), 1);
       }
     }
@@ -70,7 +80,7 @@ public class Generator {
    * @param noise            -- if true -- add a chance to generate image with some random noise
    * @param isSorted         -- should be true if we generate sorted images and false if unsorted
    */
-  private void generateImage(ControlTypes object, int i, boolean contrast, boolean disabledControls, boolean noise, boolean isSorted) {
+  protected void generateImage(ControlTypes object, int i, boolean contrast, boolean disabledControls, boolean noise, boolean isSorted) {
     Component c = object.getObject(isThreaded); //Create an object
     generateObject(c, contrast, disabledControls); //Void to set some basic object params
     JFrame frame = new JFrame();
@@ -105,7 +115,7 @@ public class Generator {
    * @param contrast         -- if true -- high contrast algorithm should be enabled
    * @param disabledControls -- if true -- allows generator to create disabled controls or checked (in case of radiobutton/checkbox)
    */
-  private void generateObject(Component c, boolean contrast, boolean disabledControls) {
+  protected void generateObject(Component c, boolean contrast, boolean disabledControls) {
     Random rand = new Random();
     boolean b;
     if (disabledControls) {
@@ -142,7 +152,7 @@ public class Generator {
    *
    * @return generated figure
    */
-  private JPanel generateNoise() {
+  protected JPanel generateNoise() {
     JPanel temp = new JPanel();
     temp.setBounds(
             generateNumber(0, ConstCollection.IMAGE_WIDTH),
@@ -163,7 +173,7 @@ public class Generator {
    * @param frame
    * @param TempJPanel
    */
-  private void fillFrame(JFrame frame, JPanel TempJPanel) {
+  protected void fillFrame(JFrame frame, JPanel TempJPanel) {
     frame.setPreferredSize(new Dimension(ConstCollection.IMAGE_WIDTH, ConstCollection.IMAGE_HEIGHT));
     frame.setBounds(
             generateNumber(150 * threadNumber, 300 * threadNumber), //Position of invisible frame is set this way to prevent
@@ -183,7 +193,7 @@ public class Generator {
    * @param max -- max value
    * @return random number
    */
-  private Integer generateNumber(int min, int max) {
+  protected Integer generateNumber(int min, int max) {
     Random rand = new Random();
     Integer number = rand.nextInt(max - min) + min;
     return number;
@@ -199,14 +209,14 @@ public class Generator {
    * @param B   -- blue
    * @return random colour in RGB
    */
-  private void generateRGB(int min, int max, int R, int G, int B) {
+  protected void generateRGB(int min, int max, int R, int G, int B) {
     this.R = generateNumber(min, max);
     this.G = generateNumber(min, max);
     this.B = generateNumber(min, max);
   }
 
   //Creating folders in the certain directory (PATH - default)
-  private void createFolders() {
+  protected void createFolders() {
     if (directoryCreated == false) { //check if folders exist
       File folder = new File(GeneratorRetranslator.getPath());
       if (!folder.exists()) {
@@ -294,20 +304,21 @@ public class Generator {
    * @param number   -- generated images counter
    * @param isSorted -- should be true if we generate sorted images and false if unsorted
    */
-  private void saveImage(BufferedImage bi, ControlTypes object, int number, Boolean isSorted) {
-      String id = Integer.toString(number);
-      try {
-        if (isSorted) {
-          File outputfile = new File(GeneratorRetranslator.getPath() + "/" + "sorted" + "/" + object.getFolderName() + "/" + id + ".png");
-          ImageIO.write(bi, "png", outputfile);
-        } else {
-          File outputfile = new File(GeneratorRetranslator.getPath() + "/" + "unsorted" + "/" + object.getFolderName() + "_" + id + ".png");
-          ImageIO.write(bi, "png", outputfile);
-        }
-      } catch (IOException ex) {
-        LogWriter.log(ex.getMessage());
+  protected void saveImage(BufferedImage bi, ControlTypes object, int number, Boolean isSorted) {
+    //private void saveImage(BufferedImage bi, ControlTypes object, int number, Boolean isSorted) {
+    String id = Integer.toString(number);
+    try {
+      if (isSorted) {
+        File outputfile = new File(GeneratorRetranslator.getPath() + "/" + "sorted" + "/" + object.getFolderName() + "/" + id + ".png");
+        ImageIO.write(bi, "png", outputfile);
+      } else {
+        File outputfile = new File(GeneratorRetranslator.getPath() + "/" + "unsorted" + "/" + object.getFolderName() + "_" + id + ".png");
+        ImageIO.write(bi, "png", outputfile);
       }
+    } catch (IOException ex) {
+      LogWriter.log(ex.getMessage());
     }
+  }
 
     /*
     private void countControls(String name, int amount) {
@@ -351,4 +362,4 @@ public class Generator {
         }
     }
      */
-  }
+}
