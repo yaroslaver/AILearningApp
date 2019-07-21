@@ -14,5 +14,4 @@ repositories {
 dependencies {
     testCompile("org.junit.jupiter:junit-jupiter-api:5.4.1")
     testRuntime("org.junit.jupiter:junit-jupiter-engine:5.4.1")
-    compile 'com.jfoenix:jfoenix:8.0.8'
 }
