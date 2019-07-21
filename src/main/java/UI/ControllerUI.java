@@ -28,7 +28,7 @@ import java.util.Scanner;
  * @author Erokhin Yaroslav
  * @author Revtova Natalya
  * @author Timoshenskiy Georgy
- * @since 1.0
+ * @since 1.1
  */
 public class ControllerUI {
 

@@ -19,7 +19,7 @@ import java.util.Objects;
  */
 public class MainUI extends Application {
 
-  private final String version = "v.1.0";
+  private final String version = "v.1.1";
   private final String appName = "AILearningApp";
 
   @Override

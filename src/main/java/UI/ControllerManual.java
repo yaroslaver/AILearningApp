@@ -10,7 +10,7 @@ import javafx.stage.Stage;
  * @author Yaroslav Erokhin
  * @author Revtova Natalya
  * @author Timoshenskiy Georgy
- * @since 1.0
+ * @since 1.1
  */
 public class ControllerManual {
 
