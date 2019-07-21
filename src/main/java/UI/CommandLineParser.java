@@ -5,6 +5,13 @@ import Model.ControlTypes;
 
 import java.util.*;
 
+/**
+ * This class offers to user working with application by the terminal.
+ * @author Erokhin Yaroslav
+ * @author Revtova Natalya
+ * @author Timoshevsky Georgy
+ * @since 1.0
+ */
 public class CommandLineParser {
 
   private final Set<String> KINDOFCONTROLS = new HashSet<>(Arrays.asList("B", "Sp", "Sl", "TF", "CB", "RB"));
@@ -19,6 +26,10 @@ public class CommandLineParser {
   public CommandLineParser() {
   }
 
+  /**
+   * Method launches generator with terminal arguments.
+   * @param args - arguments from terminal
+   */
   public void parse(String[] args) {
     if (args.length == 1 && args[0].equals("help")) {
       help();
@@ -73,6 +84,9 @@ public class CommandLineParser {
     generator.startGenerator(controlsList, quantity, hasHighContrast, isDisabled, hasNoise, !isUnsorted, true, "dataset");
   }
 
+  /**
+   * Method offers help to user.
+   */
   private void help() {
     String border = "=====================================================================================";
     String title = "AILearning API:\n";
