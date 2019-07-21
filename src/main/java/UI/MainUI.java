@@ -19,11 +19,14 @@ import java.util.Objects;
  */
 public class MainUI extends Application {
 
+  private final String version = "v.1.0";
+  private final String appName = "AILearningApp";
+
   @Override
   public void start(Stage stage) throws Exception {
     try {
       Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("main-ui.fxml")));
-      stage.setTitle("AILearningApp");
+      stage.setTitle(appName + " " + version);
       stage.setScene(new Scene(root));
       stage.setResizable(false);
       stage.setMaximized(false);

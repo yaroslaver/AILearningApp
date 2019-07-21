@@ -3,7 +3,6 @@ package UI;
 import Generator.GeneratorRetranslator;
 import Generator.LogWriter;
 import Model.ControlTypes;
-import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.HPos;
@@ -49,7 +48,10 @@ public class ControllerUI {
     private Button helpButton;
 
     @FXML
-    private ProgressBar progressBar;
+    private AnchorPane indicator;
+
+    @FXML
+    private Label indicatorText;
 
     @FXML
     private CheckBox hasCheckBox;
@@ -86,18 +88,23 @@ public class ControllerUI {
 
     private String mainFolder = "";
 
+    private final String step1 = "Waiting...";
+    private final String step2 = "Successful";
+
 
     /**
      * Method is called, when main window is open.
      */
     @FXML
     private void initialize() {
+        setupStep1();
         setSettingsToPreviewField();
         setGenerateButtonAction();
         showManual();
         selectFolder();
         checkSavingFolder();
         setControlsActions();
+        setSettingsAction();
     }
 
     /**
@@ -107,6 +114,7 @@ public class ControllerUI {
     @FXML
     private void showManual() {
         helpButton.setOnAction(event -> {
+            setupStep1();
             try {
                 Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("manual.fxml")));
                 Stage stage = new Stage();
@@ -145,8 +153,8 @@ public class ControllerUI {
      * If folder wasn't chosen, alert message shows.
      */
     private void selectFolder() {
-
         folderSelectionButton.setOnAction(event -> {
+            setupStep1();
             try {
                 final DirectoryChooser directoryChooser = new DirectoryChooser();
                 if (!mainFolder.equals("")) {
@@ -211,6 +219,7 @@ public class ControllerUI {
      */
     private void setControlsActions() {
         hasTextField.setOnAction(event -> {
+            setupStep1();
             if (hasTextField.isSelected()) {
                 previewField.getChildren().add(new TextField("TextField"));
             } else {
@@ -219,6 +228,7 @@ public class ControllerUI {
         });
 
         hasCheckBox.setOnAction(event -> {
+            setupStep1();
             if (hasCheckBox.isSelected()) {
                 previewField.getChildren().add(new CheckBox("CheckBox"));
             } else {
@@ -227,6 +237,7 @@ public class ControllerUI {
         });
 
         hasRadioButton.setOnAction(event -> {
+            setupStep1();
             if (hasRadioButton.isSelected()) {
                 previewField.getChildren().add(new RadioButton("RadioButton"));
             } else {
@@ -235,6 +246,7 @@ public class ControllerUI {
         });
 
         hasSlider.setOnAction(event -> {
+            setupStep1();
             if (hasSlider.isSelected()) {
                 previewField.getChildren().add(new Slider());
             } else {
@@ -243,6 +255,7 @@ public class ControllerUI {
         });
 
         hasButton.setOnAction(event -> {
+            setupStep1();
             if (hasButton.isSelected()) {
                 previewField.getChildren().add(new Button("Button"));
             } else {
@@ -251,6 +264,7 @@ public class ControllerUI {
         });
 
         hasSpinner.setOnAction(event -> {
+            setupStep1();
             if (hasSpinner.isSelected()) {
                 previewField.getChildren().add(new Spinner<>());
             } else {
@@ -266,6 +280,8 @@ public class ControllerUI {
      */
     private void setGenerateButtonAction() {
         generateButton.setOnAction(event -> {
+            setupStep1();
+
             quantityField.setText(quantityField.getText().trim());
 
             int inputQuantity = 0;
@@ -327,59 +343,42 @@ public class ControllerUI {
                 return;
             }
             GeneratorRetranslator generator = new GeneratorRetranslator();
-            ProgressUpdaterTasker progressUpdaterTasker = new ProgressUpdaterTasker(generator, inputQuantity * controlsList.size());
-            progressBar.progressProperty().bind(progressUpdaterTasker.progressProperty());
-            final Thread thread = new Thread(progressUpdaterTasker, "1");
-            thread.setDaemon(true);
-            thread.start();
-//            ProgressThread progressThread = new ProgressThread(generator, inputQuantity * controlsList.size());
-//            progressThread.start();
             generator.startGenerator(controlsList, inputQuantity, hasHighContrast.isSelected(),
                     isDisabled.isSelected(), hasNoise.isSelected(), !isUnsorted.isSelected(), true, mainFolder);
+            setupStep2();
         });
 
     }
 
-//    private class ProgressThread extends Thread {
-//        GeneratorRetranslator generator;
-//        int totalQuantityOfControls;
-//
-//        public ProgressThread(GeneratorRetranslator generator, int totalQuantityOfControls) {
-//            this.generator = generator;
-//            this.totalQuantityOfControls = totalQuantityOfControls;
-//        }
-//
-//        @Override
-//        public void run() {
-//            double currentProgress = 0.0;
-//            while (progressBar.getProgress() < 100.0) {
-//                currentProgress = (double) generator.getProgress() / totalQuantityOfControls * 100;
-//                progressBar.setProgress(currentProgress);
-//                System.out.println(currentProgress);
-//            }
-//        }
-//    }
-
-    private class ProgressUpdaterTasker extends Task<Void> {
-        GeneratorRetranslator generator;
-        int totalQuantityOfControls;
-
-        public ProgressUpdaterTasker(GeneratorRetranslator generator, int totalQuantityOfControls) {
-            this.generator = generator;
-            this.totalQuantityOfControls = totalQuantityOfControls;
-        }
-
-        @Override
-        protected Void call() throws Exception {
-            double currentProgress = 0.0;
-            while (progressBar.getProgress() < 100.0) {
-                currentProgress = (double) generator.getProgress() / totalQuantityOfControls * 100;
-                updateProgress(currentProgress, 100.0);
-                System.out.println(currentProgress);
-                Thread.sleep(10);
-            }
-            return null;
-        }
-
+    /**
+     * Method set EventHandler to the settings checkboxes.
+     * Make indicator just like on step1.
+     */
+    private void setSettingsAction() {
+        isDisabled.setOnAction(event -> setupStep1());
+        isUnsorted.setOnAction(event -> setupStep1());
+        hasNoise.setOnAction(event -> setupStep1());
+        hasHighContrast.setOnAction(event -> setupStep1());
+        quantityField.setOnAction(event -> setupStep1());
     }
+
+    /**
+     * Make indicator just like on step1.
+     */
+    private void setupStep1() {
+        indicator.setStyle("-fx-background-color: white");
+        indicator.setStyle("-fx-border-color: black");
+        indicatorText.setText(step1);
+        indicatorText.setStyle("-fx-text-fill: black");
+    }
+
+    /**
+     * Make indicator just like on step2.
+     */
+    private void setupStep2() {
+        indicator.setStyle("-fx-background-color: green");
+        indicatorText.setText(step2);
+        indicatorText.setStyle("-fx-text-fill: white");
+    }
+
 }
