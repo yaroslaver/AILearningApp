@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="360.0" maxWidth="640.0" minHeight="380.0" minWidth="620.0" prefHeight="380.0" prefWidth="620.0" xmlns="http://javafx.com/javafx/8.0.192" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.ControllerManual">
+<AnchorPane maxHeight="360.0" maxWidth="640.0" minHeight="380.0" minWidth="620.0" prefHeight="380.0" prefWidth="620.0" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.ControllerManual">
     <children>
       <Label layoutX="248.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="140.0" text="Manual" textFill="#052f6d" AnchorPane.leftAnchor="240.0" AnchorPane.rightAnchor="240.0">
          <font>
@@ -18,6 +18,6 @@
             <Font size="20.0" />
          </font>
       </Button>
-      <TextArea fx:id="textArea" editable="false" layoutX="40.0" layoutY="50.0" prefHeight="264.0" prefWidth="549.0" text="# User Guide &#10;To generate images of the controls on which the neural network is trained, use the following sequence of actions:&#10;1. Select all the required controls;&#10;2. Enter the required number of images in the box ***Quantity***;&#10;3. If you need to use extra options, select them;&#10;4.  To change the folder click the ***Folder selection** button*;&#10;5.  In the ***Preview** window* you will see an approximate view of the images saved to your folder;&#10;6.   If the images view meets your needs, click the ***Generate** button* and wait for the green color of the  Indicator at the bottom of the app.&#10;&#10;For more information about the program, open the user guide.&#10;&#10;The Version of the application is 1.0.&#10;&#10;" wrapText="true" />
+      <TextArea fx:id="textArea" editable="false" layoutX="40.0" layoutY="50.0" prefHeight="264.0" prefWidth="549.0" text="  &#10;&#9;To generate images of the controls on which the neural network is trained, use the following sequence of actions:&#10;1. Select all the required controls;&#10;2. Enter the required number of images in the box 'Quantity';&#10;3. If you need to use extra options, select them;&#10;4. To change the folder click the  'Folder selection'  button;&#10;5.  In the 'Preview' window you will see an approximate view of the images saved to your folder;&#10;6.   If the images view meets your needs, click the 'Generate' button and wait for the green color of the Indicator at the bottom of the app.&#10;&#10;&#9;For more information about the program, open the user guide.&#10;&#10;The Version of the application is 1.0.&#10;&#10;" wrapText="true" />
     </children>
 </AnchorPane>

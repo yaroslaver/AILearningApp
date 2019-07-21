@@ -88,7 +88,7 @@
          </Button>
       <AnchorPane fx:id="indicator" layoutX="291.0" layoutY="320.0" prefHeight="40.0" prefWidth="300.0" style="-fx-border-color: #052F6D#052F6D; -fx-background-color: #052F6D#052F6D;">
          <children>
-            <Label fx:id="indicatorText" layoutX="121.0" layoutY="5.0" prefHeight="30.0" prefWidth="119.0" text="Waiting..." textAlignment="CENTER" textFill="WHITE">
+            <Label fx:id="indicatorText" layoutX="115.0" layoutY="5.0" prefHeight="30.0" prefWidth="94.0" text="Waiting..." textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font size="20.0" />
                </font>
