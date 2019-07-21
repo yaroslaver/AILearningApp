@@ -41,6 +41,10 @@ public class MainUI extends Application {
       LogWriter.log(ex.getMessage());
       System.exit(-1);
     }
+    catch (IllegalArgumentException ex) {
+      LogWriter.log("icon was not found");
+      System.exit(1);
+    }
 
   }
 
