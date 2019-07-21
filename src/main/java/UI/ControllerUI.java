@@ -27,7 +27,7 @@ import java.util.Scanner;
  * This class controls all actions, which can happen in main window of the application.
  * @author Erokhin Yaroslav
  * @author Revtova Natalya
- * @author Timoshevsky Georgy
+ * @author Timoshenskiy Georgy
  * @since 1.0
  */
 public class ControllerUI {
@@ -367,9 +367,9 @@ public class ControllerUI {
      */
     private void setupStep1() {
         indicator.setStyle("-fx-background-color: white");
-        indicator.setStyle("-fx-border-color: black");
+        indicator.setStyle("-fx-border-color:  #052F6D");
         indicatorText.setText(step1);
-        indicatorText.setStyle("-fx-text-fill: black");
+        indicatorText.setStyle("-fx-text-fill:  #052F6D");
     }
 
     /**

@@ -9,7 +9,7 @@ import java.util.*;
  * This class offers to user working with application by the terminal.
  * @author Erokhin Yaroslav
  * @author Revtova Natalya
- * @author Timoshevsky Georgy
+ * @author Timoshenskiy Georgy
  * @since 1.0
  */
 public class CommandLineParser {

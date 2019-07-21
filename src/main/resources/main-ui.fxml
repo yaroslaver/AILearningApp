@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPane" maxHeight="380.0" maxWidth="620.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="380.0" prefWidth="620.0" xmlns="http://javafx.com/javafx/8.0.192" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.ControllerUI">
+<AnchorPane fx:id="anchorPane" maxHeight="380.0" maxWidth="620.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="380.0" prefWidth="620.0" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.ControllerUI">
       <children>
          <Button fx:id="generateButton" layoutX="30.0" layoutY="320.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="235.0" style="-fx-background-color: #052F6D#052F6D;" text="Generate" textFill="WHITE" AnchorPane.bottomAnchor="20.0">
             <font>
@@ -20,7 +20,7 @@
                <Font size="21.0" />
             </font>
          </Button>
-         <Label layoutX="380.0" layoutY="10.0" prefHeight="44.0" prefWidth="114.0" text="Preview" textAlignment="CENTER" textFill="#052f6d">
+         <Label layoutX="389.0" layoutY="10.0" prefHeight="44.0" prefWidth="114.0" text="Preview" textAlignment="CENTER" textFill="#052f6d">
             <font>
                <Font size="30.0" />
             </font>
@@ -86,11 +86,11 @@
                <Font size="18.0" />
             </font>
          </Button>
-      <AnchorPane fx:id="indicator" layoutX="301.0" layoutY="327.0" prefHeight="45.0" prefWidth="300.0" style="-fx-background-color: #052F6D#052F6D;">
+      <AnchorPane fx:id="indicator" layoutX="291.0" layoutY="320.0" prefHeight="40.0" prefWidth="300.0" style="-fx-border-color: #052F6D#052F6D; -fx-background-color: #052F6D#052F6D;">
          <children>
-            <Label fx:id="indicatorText" layoutX="121.0" layoutY="11.0" prefHeight="26.0" prefWidth="119.0" text="Waiting..." textAlignment="CENTER" textFill="WHITE">
+            <Label fx:id="indicatorText" layoutX="121.0" layoutY="5.0" prefHeight="30.0" prefWidth="119.0" text="Waiting..." textAlignment="CENTER" textFill="WHITE">
                <font>
-                  <Font size="16.0" />
+                  <Font size="20.0" />
                </font>
             </Label>
          </children>

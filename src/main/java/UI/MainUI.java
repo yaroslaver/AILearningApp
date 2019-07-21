@@ -14,7 +14,7 @@ import java.util.Objects;
  * This class launches application.
  * @author Yaroslav Erokhin
  * @author Revtova Natalya
- * @author Timoshevsky Georgy
+ * @author Timoshenskiy Georgy
  * @since 1.0
  */
 public class MainUI extends Application {

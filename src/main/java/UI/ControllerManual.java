@@ -9,7 +9,7 @@ import javafx.stage.Stage;
  * This class controls actions, which can happen in the manual window.
  * @author Yaroslav Erokhin
  * @author Revtova Natalya
- * @author Timoshevsky Georgy
+ * @author Timoshenskiy Georgy
  * @since 1.0
  */
 public class ControllerManual {
