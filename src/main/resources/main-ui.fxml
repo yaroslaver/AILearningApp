@@ -70,7 +70,7 @@
                <Font size="15.0" />
             </font>
          </CheckBox>
-         <FlowPane fx:id="previewField" layoutX="290.0" layoutY="65.0" prefHeight="235.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #052F6D#052F6D;" AnchorPane.rightAnchor="30.0" />
+         <FlowPane fx:id="previewField" layoutX="290.0" layoutY="76.0" prefHeight="294.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #052F6D#052F6D;" AnchorPane.rightAnchor="30.0" />
          <CheckBox fx:id="isUnsorted" layoutX="170.0" layoutY="220.0" mnemonicParsing="false" text="Unsorted">
             <font>
                <Font size="15.0" />
@@ -86,14 +86,5 @@
                <Font size="18.0" />
             </font>
          </Button>
-      <AnchorPane fx:id="indicator" layoutX="291.0" layoutY="320.0" prefHeight="40.0" prefWidth="300.0" style="-fx-border-color: #052F6D#052F6D; -fx-background-color: #052F6D#052F6D;">
-         <children>
-            <Label fx:id="indicatorText" layoutX="118.0" layoutY="5.0" prefHeight="30.0" prefWidth="93.0" text="Waiting..." textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="103.0" AnchorPane.rightAnchor="103.0">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Label>
-         </children>
-      </AnchorPane>
       </children>
    </AnchorPane>

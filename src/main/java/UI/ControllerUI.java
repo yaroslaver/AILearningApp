@@ -48,12 +48,6 @@ public class ControllerUI {
     private Button helpButton;
 
     @FXML
-    private AnchorPane indicator;
-
-    @FXML
-    private Label indicatorText;
-
-    @FXML
     private CheckBox hasCheckBox;
 
     @FXML
@@ -88,23 +82,18 @@ public class ControllerUI {
 
     private String mainFolder = "";
 
-    private final String step1 = "Delete me please";
-    private final String step2 = "Successful";
-
 
     /**
      * Method is called, when main window is open.
      */
     @FXML
     private void initialize() {
-        setupStep1();
         setSettingsToPreviewField();
         setGenerateButtonAction();
         showManual();
         selectFolder();
         checkSavingFolder();
         setControlsActions();
-        setSettingsAction();
     }
 
     /**
@@ -114,7 +103,6 @@ public class ControllerUI {
     @FXML
     private void showManual() {
         helpButton.setOnAction(event -> {
-            setupStep1();
             try {
                 Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("manual.fxml")));
                 Stage stage = new Stage();
@@ -158,7 +146,6 @@ public class ControllerUI {
      */
     private void selectFolder() {
         folderSelectionButton.setOnAction(event -> {
-            setupStep1();
             try {
                 final DirectoryChooser directoryChooser = new DirectoryChooser();
                 if (!mainFolder.equals("")) {
@@ -230,7 +217,7 @@ public class ControllerUI {
      */
     private void setSettingsToPreviewField() {
         previewField.setHgap(5);
-        previewField.setVgap(5);
+        previewField.setVgap(10);
         previewField.setOrientation(Orientation.VERTICAL);
         previewField.setAlignment(Pos.CENTER);
         previewField.setColumnHalignment(HPos.LEFT);
@@ -242,7 +229,6 @@ public class ControllerUI {
      */
     private void setControlsActions() {
         hasTextField.setOnAction(event -> {
-            setupStep1();
             if (hasTextField.isSelected()) {
                 previewField.getChildren().add(new TextField("TextField"));
             } else {
@@ -251,7 +237,6 @@ public class ControllerUI {
         });
 
         hasCheckBox.setOnAction(event -> {
-            setupStep1();
             if (hasCheckBox.isSelected()) {
                 previewField.getChildren().add(new CheckBox("CheckBox"));
             } else {
@@ -260,7 +245,6 @@ public class ControllerUI {
         });
 
         hasRadioButton.setOnAction(event -> {
-            setupStep1();
             if (hasRadioButton.isSelected()) {
                 previewField.getChildren().add(new RadioButton("RadioButton"));
             } else {
@@ -269,7 +253,6 @@ public class ControllerUI {
         });
 
         hasSlider.setOnAction(event -> {
-            setupStep1();
             if (hasSlider.isSelected()) {
                 previewField.getChildren().add(new Slider());
             } else {
@@ -278,7 +261,6 @@ public class ControllerUI {
         });
 
         hasButton.setOnAction(event -> {
-            setupStep1();
             if (hasButton.isSelected()) {
                 previewField.getChildren().add(new Button("Button"));
             } else {
@@ -287,7 +269,6 @@ public class ControllerUI {
         });
 
         hasSpinner.setOnAction(event -> {
-            setupStep1();
             if (hasSpinner.isSelected()) {
                 previewField.getChildren().add(new Spinner<>());
             } else {
@@ -303,7 +284,6 @@ public class ControllerUI {
      */
     private void setGenerateButtonAction() {
         generateButton.setOnAction(event -> {
-            setupStep1();
 
             quantityField.setText(quantityField.getText().trim());
 
@@ -368,42 +348,10 @@ public class ControllerUI {
             GeneratorRetranslator generator = new GeneratorRetranslator();
             generator.startGenerator(controlsList, inputQuantity, hasHighContrast.isSelected(),
                     isDisabled.isSelected(), hasNoise.isSelected(), !isUnsorted.isSelected(), true, mainFolder);
-            //setupStep2();
 
             showInformationAlert("Generation of " + inputQuantity + "controls completed successfully");
         });
 
-    }
-
-    /**
-     * Method set EventHandler to the settings checkboxes.
-     * Make indicator just like on step1.
-     */
-    private void setSettingsAction() {
-        isDisabled.setOnAction(event -> setupStep1());
-        isUnsorted.setOnAction(event -> setupStep1());
-        hasNoise.setOnAction(event -> setupStep1());
-        hasHighContrast.setOnAction(event -> setupStep1());
-        quantityField.setOnAction(event -> setupStep1());
-    }
-
-    /**
-     * Make indicator just like on step1.
-     */
-    private void setupStep1() {
-        indicator.setStyle("-fx-background-color: white");
-        indicator.setStyle("-fx-border-color:  #052F6D");
-        indicatorText.setText(step1);
-        indicatorText.setStyle("-fx-text-fill:  #052F6D");
-    }
-
-    /**
-     * Make indicator just like on step2.
-     */
-    private void setupStep2() {
-        indicator.setStyle("-fx-background-color: green");
-        indicatorText.setText(step2);
-        indicatorText.setStyle("-fx-text-fill: white");
     }
 
 }
