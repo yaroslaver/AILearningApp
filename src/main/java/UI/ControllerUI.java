@@ -88,7 +88,7 @@ public class ControllerUI {
 
     private String mainFolder = "";
 
-    private final String step1 = "Waiting...";
+    private final String step1 = "Delete me please";
     private final String step2 = "Successful";
 
 
@@ -126,8 +126,10 @@ public class ControllerUI {
                 stage.show();
             } catch (NullPointerException ex) {
                 LogWriter.log("File .fxml was not found");
+                showErrorAlert("File .fxml was not found");
             } catch (IOException ex) {
                 LogWriter.log(ex.getMessage());
+                showErrorAlert(ex.getMessage());
             }
         });
     }
@@ -141,9 +143,11 @@ public class ControllerUI {
             if (!new File(mainFolder).exists()) {
                 mainFolder = "";
                 LogWriter.log("Incorrect path to saving folder");
+                showErrorAlert("Incorrect path to saving folder");
             }
         } catch (FileNotFoundException ex) {
             LogWriter.log("Can't find file folderForSaving.txt");
+            showErrorAlert("Can't find file folderForSaving.txt");
         }
     }
 
@@ -171,16 +175,18 @@ public class ControllerUI {
                         fileWriter.write(mainFolder);
                     } catch (IOException ex) {
                         LogWriter.log("Can't open or create file folderForSaving.txt");
+                        showErrorAlert("Can't open or create file folderForSaving.txt");
                     }
-                    showAlert("Selected folder: " + folder.getAbsolutePath());
+                    showInformationAlert("Selected folder: " + folder.getAbsolutePath());
                 } else {
                     if (mainFolder.equals("")) {
-                        showAlert("Path is empty.\n" +
+                        showErrorAlert("Path is empty.\n" +
                                 "Please enter the correct path to the folder");
                     }
                 }
             } catch (Exception ex) {
                 LogWriter.log(ex.getMessage());
+                showErrorAlert(ex.getMessage());
             }
 
         });
@@ -190,16 +196,33 @@ public class ControllerUI {
     /**
      * Method shows alert message.
      *
-     * @param error error message
+     * @param message error message
      */
-    private void showAlert(String error) {
+    private void showInformationAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("ATTENTION");
+
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+
+        alert.showAndWait();
+    }
+
+
+    /**
+     * Method shows alert message.
+     *
+     * @param error error message
+     */
+    private void showErrorAlert(String error) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("ERROR");
 
         alert.setHeaderText(null);
         alert.setContentText(error);
 
         alert.showAndWait();
+
     }
 
     /**
@@ -290,19 +313,19 @@ public class ControllerUI {
                 inputQuantity = Integer.valueOf(quantityField.getText());
             } catch (NumberFormatException ex) {
                 quantityField.setText("");
-                showAlert("The number of controls must be an integer. \n" +
+                showErrorAlert("The number of controls must be an integer. \n" +
                         "Please enter the correct quantity of controls.");
                 return;
             }
             if (inputQuantity < 1) {
                 quantityField.setText("");
-                showAlert("The quantity of controls must be positive.\n" +
+                showErrorAlert("The quantity of controls must be positive.\n" +
                         "Please enter the correct quantity of controls.");
                 return;
             }
             if (inputQuantity > 1000000) {
                 quantityField.setText("");
-                showAlert("The quantity is too big.");
+                showErrorAlert("The quantity is too big.");
                 return;
             }
 
@@ -333,19 +356,21 @@ public class ControllerUI {
                 }
             }
             if (controlsList.size() == 0) {
-                showAlert("At least one control must be selected. \n" +
+                showErrorAlert("At least one control must be selected. \n" +
                         "Please, choose any controls.");
                 return;
             }
 
             if (mainFolder.equals("")) {
-                showAlert("Please, choose a folder for saving controls.");
+                showErrorAlert("Please, choose a folder for saving controls.");
                 return;
             }
             GeneratorRetranslator generator = new GeneratorRetranslator();
             generator.startGenerator(controlsList, inputQuantity, hasHighContrast.isSelected(),
                     isDisabled.isSelected(), hasNoise.isSelected(), !isUnsorted.isSelected(), true, mainFolder);
-            setupStep2();
+            //setupStep2();
+
+            showInformationAlert("Generation of " + inputQuantity + "controls completed successfully");
         });
 
     }
