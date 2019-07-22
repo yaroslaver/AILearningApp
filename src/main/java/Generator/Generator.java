@@ -52,6 +52,7 @@ public class Generator {
                 currentCycle++;
                 if (currentCycle == cyclesForProgress) {
                     GeneratorRetranslator.setProgress(currentCycle);
+                    currentCycle = 0;
                 }
             }
         } else {
