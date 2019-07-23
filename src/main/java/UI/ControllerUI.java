@@ -78,7 +78,7 @@ public class ControllerUI {
     private CheckBox hasNoise;
 
     @FXML
-    private CheckBox hasMultithreading;
+    private CheckBox hasSeveralStyles;
 
     @FXML
     private FlowPane previewField = new FlowPane();
@@ -352,7 +352,7 @@ public class ControllerUI {
             GeneratorRetranslator generator = new GeneratorRetranslator();
             generator.startGenerator(controlsList, inputQuantity, hasHighContrast.isSelected(),
                     isDisabled.isSelected(), hasNoise.isSelected(), !isUnsorted.isSelected(),
-                    hasMultithreading.isSelected(), mainFolder);
+                    !hasSeveralStyles.isSelected(), mainFolder);
 
             showInformationAlert("Generation of " + inputQuantity + " controls completed successfully");
         });

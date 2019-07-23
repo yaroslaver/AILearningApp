@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPane" maxHeight="396.0" maxWidth="620.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="354.0" prefWidth="620.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.ControllerUI">
+<AnchorPane fx:id="anchorPane" maxHeight="396.0" maxWidth="620.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="354.0" prefWidth="620.0" xmlns="http://javafx.com/javafx/8.0.192" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.ControllerUI">
       <children>
          <Button fx:id="generateButton" layoutX="290.0" layoutY="290.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="300.0" style="-fx-background-color: #052F6D#052F6D;" text="Generate" textFill="WHITE" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="30.0">
             <font>
@@ -86,7 +86,7 @@
                <Font size="18.0" />
             </font>
          </Button>
-      <CheckBox fx:id="hasMultithreading" layoutX="30.0" layoutY="250.0" mnemonicParsing="false" text="Multithreading">
+      <CheckBox fx:id="hasSeveralStyles" layoutX="30.0" layoutY="250.0" mnemonicParsing="false" text="Several styles">
          <font>
             <Font size="15.0" />
          </font>
