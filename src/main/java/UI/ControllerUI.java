@@ -78,6 +78,9 @@ public class ControllerUI {
     private CheckBox hasNoise;
 
     @FXML
+    private CheckBox hasMultithreading;
+
+    @FXML
     private FlowPane previewField = new FlowPane();
 
     private String mainFolder = "";
@@ -345,11 +348,12 @@ public class ControllerUI {
                 showErrorAlert("Please, choose a folder for saving controls.");
                 return;
             }
+            //showInformationAlert("Generation of " + inputQuantity + " controls started");
             GeneratorRetranslator generator = new GeneratorRetranslator();
             generator.startGenerator(controlsList, inputQuantity, hasHighContrast.isSelected(),
                     isDisabled.isSelected(), hasNoise.isSelected(), !isUnsorted.isSelected(), true, mainFolder);
 
-            showInformationAlert("Generation of " + inputQuantity + "controls completed successfully");
+            showInformationAlert("Generation of " + inputQuantity + " controls completed successfully");
         });
 
     }
