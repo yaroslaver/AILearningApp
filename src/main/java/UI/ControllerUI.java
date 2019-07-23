@@ -351,7 +351,8 @@ public class ControllerUI {
             //showInformationAlert("Generation of " + inputQuantity + " controls started");
             GeneratorRetranslator generator = new GeneratorRetranslator();
             generator.startGenerator(controlsList, inputQuantity, hasHighContrast.isSelected(),
-                    isDisabled.isSelected(), hasNoise.isSelected(), !isUnsorted.isSelected(), true, mainFolder);
+                    isDisabled.isSelected(), hasNoise.isSelected(), !isUnsorted.isSelected(),
+                    hasMultithreading.isSelected(), mainFolder);
 
             showInformationAlert("Generation of " + inputQuantity + " controls completed successfully");
         });
