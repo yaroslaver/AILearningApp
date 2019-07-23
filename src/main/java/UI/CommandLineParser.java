@@ -19,7 +19,7 @@ public class CommandLineParser {
   private final int OFFSETOFCONTROLS = 1;
 
   private int quantity;
-  private boolean isDisabled, hasHighContrast, isUnsorted, hasNoise;
+  private boolean isDisabled, hasHighContrast, isUnsorted, hasNoise, hasMultithreading;
   private final Set<ControlTypes> controls = new HashSet<>(6);
 
 
@@ -40,7 +40,7 @@ public class CommandLineParser {
       throw new IllegalArgumentException("Incorrect number of controls");
     }
 
-    if (args.length < 7 || args.length > 12 || (args.length - numOfControls) != 6) {
+    if (args.length < 8 || args.length > 13 || (args.length - numOfControls) != 7) {
       throw new IllegalArgumentException("Incorrect number of arguments");
     }
 
@@ -77,11 +77,13 @@ public class CommandLineParser {
     isDisabled = Boolean.valueOf(settings.get(1));
     hasNoise = Boolean.valueOf(settings.get(2));
     isUnsorted = Boolean.valueOf(settings.get(3));
+    hasMultithreading = Boolean.valueOf(settings.get(4));
 
     ArrayList<ControlTypes> controlsList = new ArrayList<>(controls);
 
     GeneratorRetranslator generator = new GeneratorRetranslator();
-    generator.startGenerator(controlsList, quantity, hasHighContrast, isDisabled, hasNoise, !isUnsorted, true, "dataset");
+    generator.startGenerator(controlsList, quantity, hasHighContrast, isDisabled, hasNoise, !isUnsorted,
+            hasMultithreading, "dataset");
   }
 
   /**
@@ -91,7 +93,7 @@ public class CommandLineParser {
     String border = "=====================================================================================";
     String title = "AILearning API:\n";
     String template = "arguments: numOfControls, controls..., quantityOfEach, hasHighContrast, hasDisabled, " +
-            "hasNoise, isUnsorted\n";
+            "hasNoise, isUnsorted, hasMultithreading\n";
     String numOfCon= "numOfControls - integer number of controls (1 - 6)\n";
     String contrls = "controls... - each control is string and number of strings equals numOfControls";
     String namesOfControls = "Every string is define symbol:\nB - Button, TF - TextField, RB - RadioButton" +
@@ -100,13 +102,15 @@ public class CommandLineParser {
     String highContrast = "hasHighContrast - string (true or false)\n";
     String disabled = "hasDisabled - string (true of false)\nif true - some controls will be disabled\n";
     String noise = "hasNoise - string (true or false)\n";
+    String multithreading = "hasMultithreading - string (true or false)\nif true - only one style will generates" +
+            "but will be mach faster";
     String unsorted = "isUnsorted - string (true or false)\nif true - controls will be in one folder\n";
-    String example = "Example: 3 B TF RB 100 true true true false";
+    String example = "Example: 3 B TF RB 100 true true true false false";
     String meaning = "It means that app will generate 100 Buttons, 100 TextFields, 100 RadioButtons " +
-            "with high contrast, noise,\nsome controls will be disabled and locate in different folders";
+            "with high contrast, noise,\nand one style, some controls will be disabled and locate in different folders";
 
-    System.out.println(String.format("%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s", border, title, template, numOfCon,
-            contrls, namesOfControls, quantityOfEach, highContrast, disabled, noise, unsorted, example, meaning));
+    System.out.println(String.format("%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s", border, title, template, numOfCon,
+            contrls, namesOfControls, quantityOfEach, highContrast, disabled, noise, unsorted, multithreading, example, meaning));
   }
 
 }
