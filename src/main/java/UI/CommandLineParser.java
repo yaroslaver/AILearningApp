@@ -93,7 +93,7 @@ public class CommandLineParser {
     String border = "=====================================================================================";
     String title = "AILearning API:\n";
     String template = "arguments: numOfControls, controls..., quantityOfEach, hasHighContrast, hasDisabled, " +
-            "hasNoise, isUnsorted, hasSeveralStyles\n";
+            "hasNoise,\n  isUnsorted, hasSeveralStyles\n";
     String numOfCon= "numOfControls - integer number of controls (1 - 6)\n";
     String contrls = "controls... - each control is string and number of strings equals numOfControls";
     String namesOfControls = "Every string is define symbol:\nB - Button, TF - TextField, RB - RadioButton" +
@@ -103,7 +103,7 @@ public class CommandLineParser {
     String disabled = "hasDisabled - string (true of false)\nif true - some controls will be disabled\n";
     String noise = "hasNoise - string (true or false)\n";
     String severalStyles = "hasSeveralStyles - string (true or false)\nif false - only one style will generates" +
-            "but will be mach faster";
+            "but will be mach faster\n";
     String unsorted = "isUnsorted - string (true or false)\nif true - controls will be in one folder\n";
     String example = "Example: 3 B TF RB 100 true true true false false";
     String meaning = "It means that app will generate 100 Buttons, 100 TextFields, 100 RadioButtons " +
