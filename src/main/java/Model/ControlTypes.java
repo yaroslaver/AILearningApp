@@ -1,5 +1,7 @@
 package Model;
 
+import Generator.LogWriter;
+
 import javax.swing.*;
 import javax.swing.text.Caret;
 import java.awt.*;
@@ -30,9 +32,13 @@ public enum ControlTypes {
 
     //different styles of controls
     private static final String[] LOOK_AND_FEEL = new String[] {
+            "com.sun.java.swing.plaf.motif.MotifLookAndFeel",
             "javax.swing.plaf.nimbus.NimbusLookAndFeel",
             "javax.swing.plaf.metal.MetalLookAndFeel",
-            "com.sun.java.swing.plaf.windows.WindowsClassicLookAndFeel"
+            "com.sun.java.swing.plaf.windows.WindowsClassicLookAndFeel",
+            "com.alee.laf.WebLookAndFeel",
+            "org.gtk.java.swing.plaf.gtk.GtkLookAndFeel",
+            "com.birosoft.liquid.LiquidLookAndFeel",
     };
 
     //min, max and current values set to slider
@@ -46,14 +52,16 @@ public enum ControlTypes {
      * @return Component corresponding to current element of enum
      * @param isThreaded is True when multithreading system is used
      */
+
     public Component getObject(boolean isThreaded) {
         //use different styles of controls only in single-thread processing
         if (!isThreaded) {
             try {
                 UIManager.setLookAndFeel(LOOK_AND_FEEL[getRandomInt(0, LOOK_AND_FEEL.length - 1)]);
+                System.out.println(UIManager.getLookAndFeel());
             } catch (ClassNotFoundException | InstantiationException
                     | IllegalAccessException | UnsupportedLookAndFeelException e) {
-                e.printStackTrace();
+                LogWriter.log(e.getMessage());
             }
         }
 
