@@ -348,13 +348,12 @@ public class ControllerUI {
                 showErrorAlert("Please, choose a folder for saving controls.");
                 return;
             }
-            //showInformationAlert("Generation of " + inputQuantity + " controls started");
             GeneratorRetranslator generator = new GeneratorRetranslator();
             generator.startGenerator(controlsList, inputQuantity, hasHighContrast.isSelected(),
                     isDisabled.isSelected(), hasNoise.isSelected(), !isUnsorted.isSelected(),
                     !hasSeveralStyles.isSelected(), mainFolder);
 
-            showInformationAlert("Generation of " + inputQuantity + " controls completed successfully");
+            showInformationAlert("Generation of " + inputQuantity*controlsList.size() + " controls completed successfully");
         });
 
     }
